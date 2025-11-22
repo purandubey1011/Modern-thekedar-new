@@ -6,10 +6,10 @@ const IconBar = () => {
       <div className="scroll-container">
         <div className="scroll-content">
           <img src="/Assets/icons.png" alt="" className="h-20" />
-          <img src="/Assets/icons.png" alt="" className="h-20" />
-          <img src="/Assets/icons.png" alt="" className="h-20" />
-          <img src="/Assets/icons.png" alt="" className="h-20" />
-          <img src="/Assets/icons.png" alt="" className="h-20" />
+          <img src="/Assets/icons.png" alt="" className="h-20 border-l-2 border-l-gray-200" />
+          <img src="/Assets/icons.png" alt="" className="h-20 border-l-2 border-l-gray-200" />
+          <img src="/Assets/icons.png" alt="" className="h-20 border-l-2 border-l-gray-200" />
+          <img src="/Assets/icons.png" alt="" className="h-20 border-l-2 border-l-gray-200" />
         </div>
       </div>
     </section>
