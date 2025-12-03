@@ -48,7 +48,7 @@ const FounderVision = () => {
     <section ref={containerRef} className="py-10 overflow-hidden">
       <div className="container mx-auto px-6 flex flex-col items-center">
         {/* Image */}
-        <div className="vision-image-wrapper max-w-lg w-82 overflow-hidden rounded-lg shadow-2xl">
+        <div className="vision-image-wrapper max-w-lg w-[90%] lg:w-82 overflow-hidden rounded-lg shadow-2xl">
           <img
             src="/Assets/foundervision.png"
             alt="Founder's Vision - Construction Site"
@@ -62,7 +62,7 @@ const FounderVision = () => {
         </h2>
 
         {/* Description Text */}
-        <p className="vision-text text-[#000000c2] leading-relaxed text-center max-w-5xl font-montserrat font-normal text-[20px]">
+        <p className="vision-text text-[#000000c2] leading-relaxed text-center max-w-5xl font-montserrat font-normal text-md">
           "TMT was founded to redefine home construction. The idea was simple:
           every client deserves a home that reflects their essence and lifestyle.
           Guided by this philosophy, our founder envisioned a company that

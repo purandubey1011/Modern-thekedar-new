@@ -102,7 +102,7 @@ const Construction = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="bg-[#FBF9F3] text-black py-24 font-sans">
+    <section ref={containerRef} className="bg-[#FBF9F3] text-black py-10 lg:py-24 font-sans">
       <div className="container mx-auto px-6 lg:px-12">
         
         {/* Grid Layout */}
@@ -111,7 +111,7 @@ const Construction = () => {
           {/* Left Column: Intro & CTA (Sticky) */}
           <div className="left-panel-anim flex flex-col justify-between items-start  lg:sticky lg:top-24 lg:h-[calc(100vh-12rem)]">
             
-            <div className="space-y-8">
+            <div className="space-y-4 lg:space-y-5">
               <div className="border border-[#CFA036] text-[#CFA036] px-4 py-2 w-fit text-lg font-medium tracking-wide">
                 How We Work
               </div>
@@ -120,17 +120,17 @@ const Construction = () => {
                 Comprehensive <br /> Construction Services
               </h2>
               
-              <p className="text-gray-600 leading-relaxed text-lg font-poppins">
+              <p className="text-gray-600 leading-relaxed text-md lg:text-lg font-poppins">
                 At Buildpro, we offer a wide range of construction services
                 tailored to meet the unique needs of our clients. From initial
                 planning to final touches, our skilled team is dedicated to
                 delivering excellence in every project.
               </p>
-            </div>
-
-            <button className="bg-[#B58718] hover:bg-[#967014] transition-colors text-white text-lg font-medium rounded-md px-8 py-3 mt-12 lg:mt-0 w-fit shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
+            <button className="bg-[#B58718] hover:bg-[#967014] transition-colors text-white text-lg font-medium rounded-md px-6 lg:px-8 py-2 lg:py-3 mt-6 lg:mt-0 w-fit shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
               Enquire Now
             </button>
+            </div>
+
           </div>
 
           {/* Right Column: Services List */}

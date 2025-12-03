@@ -121,9 +121,9 @@ const Carrer = () => {
       <Header bgColor="bg-[#B58718]" text="text-white" border="border" />
 
       <div className="min-h-screen mb-8 bg-gray-100">
-        <div>
-          <div className="career-content bg-[#B58718] text-white shadow-2xl p-8 md:p-12 mt-12">
-            <h2 className="page-title md:text-5xl font-bold font-times text-center mb-12 lg:text-[80px]">
+        <div className="pt-16 lg:pt-6">
+          <div className="career-content bg-[#B58718] text-white shadow-2xl p-2 md:p-12">
+            <h2 className="page-title text-3xl md:text-5xl font-bold font-times text-center mb-2 lg:mb-4 lg:text-[80px]">
               Join Our Team
             </h2>
 
@@ -137,7 +137,7 @@ const Carrer = () => {
                   dynamic work environment, we'd love to hear from you. Reach us
                   at:
                   <br />
-                  <span className="inline-block font-semibold mt-3 cursor-pointer text-xl border-b border-transparent hover:border-white transition-all">
+                  <span className="inline-block font-semibold mt-3 cursor-pointer text-sm lg:text-xl border-b border-transparent hover:border-white transition-all">
                     HR@THEMODERNTHEKEDAR.COM
                   </span>
                 </p>
@@ -271,7 +271,7 @@ const Carrer = () => {
                 <div className="form-input pt-4">
                   <button
                     type="submit"
-                    className="w-full bg-white text-[#B58718] font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 transform"
+                    className="w-full bg-white text-[#B58718] text-sm font-bold py-4 px-4 rounded-full shadow-lg hover:bg-gray-50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 transform"
                   >
                     Submit Application
                   </button>

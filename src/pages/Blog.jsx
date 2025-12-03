@@ -196,11 +196,11 @@ const Blog = () => {
       <Header bgColor="bg-white" text="" border="" />
 
       {/* MAIN BLOG UI */}
-      <div className="bg-white py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white py-10 lg:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Page Intro */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-4">
             <h2 className="page-title text-4xl md:text-5xl font-bold font-times lg:text-[80px] lg:max-w-2xl lg:ml-79 text-[#20000F] mb-9 mt-12">
               Insights, Tips & Property Advice
             </h2>
@@ -211,7 +211,7 @@ const Blog = () => {
           </div>
 
           {/* FILTER BUTTONS */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             {filterCategories.map((cat) => (
               <button
                 key={cat.name}
@@ -229,7 +229,7 @@ const Blog = () => {
           </div>
 
           {/* BLOG CARDS GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
             {blogPosts.map((post) => (
                 <Link key={post.id} to={`/blog-details`}>
 

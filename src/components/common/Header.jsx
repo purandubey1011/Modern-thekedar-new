@@ -34,8 +34,8 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
     // { name: "Home", path: "/#" },
     { name: "About Us", path: "/about" },
     { name: "Our Services", hasDropdown: true },
-    { name: "Our Work", path: "/our-work" },
-    { name: "Gallery", path: "/gallery" },
+    // { name: "Our Work", path: "/our-work" },
+    // { name: "Gallery", path: "/gallery" },
     { name: "Careers", path: "/careers" },
     { name: "Blogs", path: "/blogs" },
   ];
@@ -43,7 +43,7 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   return (
     <header 
       ref={headerRef} 
-      className={`h-[13vh] fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${bgColor || 'bg-[rgb(255,250,230)]' } ${text} `}
+      className={`h-[12vh] fixed top-0 left-0 w-full z-50 transition-colors duration-300 px-0 lg:px-14 ${bgColor || 'bg-orange-100' } ${text} `}
     >
       <nav className="container mx-auto py-3 flex justify-between items-center px-3 lg:px-0">
 

@@ -1,114 +1,84 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 
-  useGSAP(() => {
-    // 1. Text Reveal Animation (Cinematic Blur + Slide)
-    gsap.from(".about-text", {
-      y: 50,
-      opacity: 0,
-      filter: "blur(10px)", // Adds a premium 'focus' effect
-      duration: 1,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 70%",
-      }
-    });
+  useGSAP(
+    () => {
+      gsap.from(".about-text", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+      });
 
-    // 2. Image Entry (Scale Up)
-    gsap.from(imageRef.current, {
-      scale: 0.9,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top center",
-        // toggleActions: "play none none reverse",
-      }
-    });
-
-  }, { scope: containerRef });
-
-  // Interactive 3D Tilt Effect logic
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = imageRef.current.getBoundingClientRect();
-    // Calculate mouse position relative to the center of the image
-    const x = (e.clientX - left - width / 2) / 20; // Divide to control sensitivity
-    const y = (e.clientY - top - height / 2) / 20;
-
-    gsap.to(imageRef.current, {
-      rotationY: x,    // Rotate horizontally
-      rotationX: -y,   // Rotate vertically (inverted for natural feel)
-      transformPerspective: 1000, // Gives it the 3D depth
-      scale: 1.02,     // Slight zoom
-      duration: 0.4,
-      ease: "power2.out"
-    });
-  };
-
-  const handleMouseLeave = () => {
-    // Reset to flat state
-    gsap.to(imageRef.current, {
-      rotationY: 0,
-      rotationX: 0,
-      scale: 1,
-      duration: 0.5,
-      ease: "power2.out"
-    });
-  };
+      gsap.from(imageRef.current, {
+        scale: 0.95,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+        },
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <section ref={containerRef} className="bg-white overflow-y-auto py-12">
-      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        
-        {/* Left Side: Interactive 3D Image */}
-        <div 
-          className="perspective-container flex justify-center cursor-pointer"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
+    <section
+      ref={containerRef}
+      className="relative py-6 lg:py-16 overflow-hidden bg-white"
+    >
+      {/* Curved Background Shape */}
+      {/* <div className="absolute right-0 top-40 w-[1200px] h-[300px] bg-[#F9F4E9] rounded-full blur-[60px] opacity-70 translate-x-1/4"></div> */}
+
+      <div className="container mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-16 items-center relative z-10 max-w-6xl">
+        {/* LEFT IMAGE */}
+        <div className="flex justify-center">
           <img
             ref={imageRef}
             src="/Assets/About.png"
-            alt="Elegant building interior"
-            // Added transition for shadow and border
- className="
-    rounded-lg 
-    w-full 
-    object-cover 
-    shadow-xl 
-    will-change-transform 
-    hover:shadow-[0_20px_50px_rgba(181,135,24,0.4)] 
-    transition-shadow duration-300
+            alt="Luxury modern villa"
+            className="
+              rounded-3xl 
+              shadow-xl 
+              w-full 
+              object-cover 
+              h-[30vh]
 
-    h-[260px]
-    sm:h-[320px]
-    md:h-[380px]
-    lg:h-[450px]
-    xl:h-[500px]
-  "          />
+              sm:h-[40vh]
+              md:h-[45vh]
+              lg:h-[50vh]
+              xl:h-[55vh]
+            "
+          />
         </div>
 
-        {/* Right Side: Text Content */}
-        <div className="h-fit font-poppins">
-          <h5 className="about-text text-[rgb(181,135,24)] font-bold text-3xl">
-            About us
+        {/* RIGHT TEXT */}
+        <div className="font-poppins">
+          <h5 className="about-text text-[rgb(181,135,24)] font-semibold text-xl">
+            About Us
           </h5>
-          <h2 className="about-text mt-5 font-times text-2xl font-bold text-gray-800">
-            The Illusion of Choice Flats or Chaos, Both Are Traps.
+
+          <h2 className="about-text mt-3 lg:mt-5 font-times text-3xl md:text-4xl font-bold leading-snug text-gray-900">
+            The Illusion of Choice Flats or <br />
+            Chaos, Both Are Traps.
           </h2>
-          <p className="about-text mt-6 text-gray-600 leading-relaxed font-poppins">
+
+          <p className="about-text mt-3 lg:mt-6 text-gray-600 leading-relaxed text-[2vmax] md:text-[16px] max-w-xl">
             At The Modern Thekedar (TMT), we’re redefining how homes are built.
             No cramped flats. No chaotic construction. Just smart design, honest
             execution, and peace of mind. We blend modern design expertise with

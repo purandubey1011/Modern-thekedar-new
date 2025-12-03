@@ -53,11 +53,11 @@ const OurPromise = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="about" className="py-20 overflow-hidden">
-      <div className="container mx-auto px-6 grid md:grid-cols-2 lg:py-8 lg:pl-18 gap-12 items-center bg-[rgb(251,249,243)] border border-[rgb(237,227,200)] rounded-xl">
+    <section ref={containerRef} id="about" className="py-10 lg:py-20 overflow-hidden">
+      <div className="container mx-auto px-6 grid md:grid-cols-2 py-4 lg:py-8 lg:pl-18 gap-12 items-center bg-[#F9F9F9] border border-[rgb(237,227,200)] rounded-xl w-[85vw]">
         <div>
           {/* Icon */}
-          <div className="promise-icon w-16 h-16 bg-[rgb(181,135,24)] rounded-lg flex items-center justify-center shadow-lg flex-shrink-0 mb-6">
+          <div className="promise-icon w-16 h-16 bg-[rgb(181,135,24)] rounded-lg flex items-center justify-center shadow-lg shrink-0 mb-6">
             <Flower size={32} className="text-white" />
           </div>
           <h2 className="promise-title text-[32px] font-bold text-[#0A0A0A] font-times mb-6">
@@ -75,7 +75,7 @@ const OurPromise = () => {
           <img
             src="/Assets/gallery1.png"
             alt="Our Story"
-            className="promise-image rounded-lg shadow-2xl object-cover w-full h-auto lg:h-78 lg:w-[490px] lg:ml-10"
+            className="promise-image rounded-lg shadow-2xl object-cover w-full h-[40vh] lg:h-78 lg:w-[490px] lg:ml-10"
           />
         </div>
       </div>

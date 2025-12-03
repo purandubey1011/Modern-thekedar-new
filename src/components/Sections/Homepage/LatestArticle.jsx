@@ -97,9 +97,9 @@ const LatestArticle = () => {
   return (
     <section 
       ref={containerRef} 
-      className="bg-white min-h-[80vh] flex flex-col justify-center py-20"
+      className="bg-white min-h-[80vh] flex flex-col justify-center py-8"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 lg:px-16">
         {/* Header */}
         <div className="section-header flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
           <div>

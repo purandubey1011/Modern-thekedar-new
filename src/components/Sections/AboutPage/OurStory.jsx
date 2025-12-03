@@ -48,13 +48,13 @@ const OurStory = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="about" className="py-20 bg-white overflow-hidden">
-      <div className="container mx-auto px-6 grid md:grid-cols-2 lg:py-8 lg:pl-18 gap-12 items-center bg-[rgb(251,249,243)] border border-[rgb(237,227,200)] rounded-xl">
+    <section ref={containerRef} id="about" className="py-10 lg:py-20 bg-white overflow-hidden">
+      <div className="container mx-auto px-6 grid md:grid-cols-2 py-4 lg:py-8 lg:pl-18 gap-12 items-center bg-[rgb(251,249,243)] border border-[rgb(237,227,200)] rounded-xl w-[85vw]">
         <div>
-          <h2 className="story-title text-[40px] font-bold text-[#0A0A0A] font-times mb-6">
+          <h2 className="story-title text-[4vmax] lg:text-4xl font-bold text-[#0A0A0A] font-times mb-6">
             Who We Are
           </h2>
-          <p className="story-text text-[#000000] leading-relaxed mb-4 font-montserrat text-[18px]">
+          <p className="story-text text-[#000000] leading-relaxed mb-0 lg:mb-4 font-montserrat text-xs lg:text-[18px]">
             At TMT, we don’t just build houses — we create homes that tell your
             story. Every brick, every design choice, and every detail is crafted
             around you. We believe that a home should inspire, not just

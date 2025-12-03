@@ -1,8 +1,8 @@
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import React, { useState, useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ChevronDown, ChevronUp } from "lucide-react";
+import React, { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -11,30 +11,30 @@ gsap.registerPlugin(ScrollTrigger);
 const FaqItem = ({ faq, isOpen, onClick }) => {
   const contentRef = useRef(null);
 
-  useGSAP(() => {
-    if (isOpen) {
-      // Kill any existing animations
-      gsap.killTweensOf(".word");
-      
-      // Reset: Start high up (-50px), invisible, and slightly tilted
-      gsap.set(".word", { 
-        opacity: 0, 
-        y: -50, 
-        skewX: -20 // Adds momentum feel to the fall
-      });
+  // useGSAP(() => {
+  //   if (isOpen) {
+  //     // Kill any existing animations
+  //     gsap.killTweensOf(".word");
 
-      // Animate: Distinct falling effect
-      gsap.to(".word", {
-        opacity: 1,
-        y: 0,
-        skewX: 0,
-        duration: 0.8,       // Longer duration for the fall physics
-        stagger: 0.05,       // Distinct delay to see words falling one by one
-        ease: "elastic.out(1, 0.6)", // Bouncy landing effect
-        delay: 0.1,
-      });
-    }
-  }, { scope: contentRef, dependencies: [isOpen] }); 
+  //     // Reset: Start high up (-50px), invisible, and slightly tilted
+  //     gsap.set(".word", {
+  //       opacity: 0,
+  //       y: -50,
+  //       skewX: -20 // Adds momentum feel to the fall
+  //     });
+
+  //     // Animate: Distinct falling effect
+  //     gsap.to(".word", {
+  //       opacity: 1,
+  //       y: 0,
+  //       skewX: 0,
+  //       duration: 0.8,       // Longer duration for the fall physics
+  //       stagger: 0.05,       // Distinct delay to see words falling one by one
+  //       ease: "elastic.out(1, 0.6)", // Bouncy landing effect
+  //       delay: 0.1,
+  //     });
+  //   }
+  // }, { scope: contentRef, dependencies: [isOpen] });
 
   // Split text into words for animation
   const words = faq.answer.split(" ");
@@ -45,28 +45,35 @@ const FaqItem = ({ faq, isOpen, onClick }) => {
         onClick={onClick}
         className="w-full flex justify-between items-center text-left group"
       >
-        <span className={`text-lg font-semibold font-poppins transition-colors duration-300 ${isOpen ? 'text-[#B58718]' : 'text-gray-800'} group-hover:text-[#B58718]`}>
+        <span
+          className={`text-lg font-semibold font-poppins transition-colors duration-300 ${
+            isOpen ? "text-[#B58718]" : "text-gray-800"
+          } group-hover:text-[#B58718]`}
+        >
           {faq.question}
         </span>
         {isOpen ? (
           <ChevronUp size={24} className="text-[#B58718]" />
         ) : (
-          <ChevronDown size={24} className="text-gray-600 group-hover:text-[#B58718]" />
+          <ChevronDown
+            size={24}
+            className="text-gray-600 group-hover:text-[#B58718]"
+          />
         )}
       </button>
 
       {/* Accordion Content Wrapper */}
       <div
         className={`grid transition-all duration-700 ease-in-out ${
-          isOpen ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr] mt-0'
+          isOpen ? "grid-rows-[1fr] mt-4" : "grid-rows-[0fr] mt-0"
         }`}
       >
         <div ref={contentRef} className="overflow-hidden">
           {/* Added padding-top to ensure words falling from -50px aren't cut off immediately */}
           <p className="text-gray-600 leading-relaxed font-poppins pt-2">
             {words.map((word, i) => (
-              <span 
-                key={i} 
+              <span
+                key={i}
                 className="word inline-block mr-[5px] will-change-transform origin-top"
               >
                 {word}
@@ -79,46 +86,55 @@ const FaqItem = ({ faq, isOpen, onClick }) => {
   );
 };
 
-
 // --- Main Component ---
 const Faq = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
   const containerRef = useRef(null);
-  
+
   // GSAP Animations for the Section Entry
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 75%",
-        end: "bottom 20%",
-        toggleActions: "play reverse play reverse",
-      }
-    });
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+          end: "bottom 20%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
 
-    // 1. Title Animation
-    tl.from(".faq-title", {
-      y: -30,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    })
-    // 2. Image Animation
-    .from(".faq-image", {
-      x: 50,
-      opacity: 0,
-      scale: 0.95,
-      duration: 1,
-      ease: "power3.out"
-    }, "-=0.6")
-    // 3. List entry
-    .from(".faq-list", {
-      opacity: 0,
-      y: 20,
-      duration: 0.8
-    }, "-=0.8");
-
-  }, { scope: containerRef });
+      // 1. Title Animation
+      tl.from(".faq-title", {
+        y: -30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      })
+        // 2. Image Animation
+        .from(
+          ".faq-image",
+          {
+            x: 50,
+            opacity: 0,
+            scale: 0.95,
+            duration: 1,
+            ease: "power3.out",
+          },
+          "-=0.6"
+        )
+        // 3. List entry
+        .from(
+          ".faq-list",
+          {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+          },
+          "-=0.8"
+        );
+    },
+    { scope: containerRef }
+  );
 
   const faqs = [
     {
@@ -153,7 +169,7 @@ const Faq = () => {
   };
 
   return (
-    <section ref={containerRef} className="bg-stone-100 py-16 font-sans overflow-hidden">
+    <section ref={containerRef} className="px-2 lg:px-14 py-16 font-sans overflow-hidden">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
         {/* Left Column: FAQs */}
         <div className="flex flex-col">
@@ -162,7 +178,7 @@ const Faq = () => {
           </h2>
           <div className="faq-list space-y-6">
             {faqs.map((faq, index) => (
-              <FaqItem 
+              <FaqItem
                 key={index}
                 faq={faq}
                 isOpen={openFAQ === index}
@@ -173,11 +189,19 @@ const Faq = () => {
         </div>
 
         {/* Right Column: Image */}
-        <div className="faq-image">
+        <div className="faq-image w-full max-w-[650px] mx-auto">
           <img
             src="/Assets/villa.png"
             alt="Modern Villa"
-            className="rounded-lg shadow-2xl h-[449px] w-[658px] object-center object-cover"
+            className="
+                rounded-lg 
+                shadow-2xl 
+                w-full 
+                h-auto 
+                object-cover 
+                object-center 
+                aspect-[4/3]
+              "
           />
         </div>
       </div>

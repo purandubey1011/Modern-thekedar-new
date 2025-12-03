@@ -14,8 +14,8 @@ const StandardFeature = ({ heading = "", description = "", featureList = [] }) =
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 70%", // Triggers slightly earlier for better visibility
-        end: "bottom 20%",
+        start: "top 80%", // Triggers slightly earlier for better visibility
+        end: "bottom 60%",
   scrub: 0.6,     // <— smooth scroll animation
   once: false,
       }
