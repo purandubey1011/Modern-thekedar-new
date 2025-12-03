@@ -43,13 +43,11 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   return (
     <header 
       ref={headerRef} 
-      className={`h-[12vh] fixed top-0 left-0 w-full z-50 transition-colors duration-300 px-0 lg:px-14 ${bgColor || 'bg-orange-100' } ${text} `}
+      className={`h-[12vh] fixed top-0 left-0 w-full z-50 transition-colors duration-300 px-0 lg:px-14 ${bgColor || 'bg-orange-100' } ${text} flex justify-between items-center`}
     >
       <nav className="container mx-auto py-3 flex justify-between items-center px-3 lg:px-0">
 
-        {/* LEFT SIDE → LOGO + NAVIGATION */}
-        <div className="flex items-center space-x-10">
-
+       
           {/* Logo - Added 'animate-item' */}
           <Link 
             to={'/'} 
@@ -110,8 +108,7 @@ className={`
             ))}
           </div>
 
-        </div>
-
+        
         {/* Contact button - Added 'animate-item' */}
         <div className={`animate-item ${border || "border-[#B58718]"} ${text || "text-[#B58718]"} hidden md:block border rounded-full px-9 py-3 hover:text-black transition-colors duration-300 font-semibold`}>
           <Link to="/contact-us">Contact Us</Link>
