@@ -60,22 +60,23 @@ const CTABanner = () => {
     // Preserved outer section with font-serif
     <section
       ref={containerRef}
-      className="bg-white font-serif md:py-0 relative overflow-hidden"
+      className="bg-white font-serif md:py-0 relative overflow-hidden mt-9 w-full"
     >
       {/* Upper images - Preserved Structure */}
-      <div className="top-img-con relative bottom-[-117px] z-20">
+      <div className="top-img-con relative bottom-[-70px] z-20">
         <img
           src="/Assets/toptilt.png"
-          className="deco-img absolute top-[-16px] left-15"
+          className="deco-img absolute -top-4 left-15"
           alt=""
         />
         <img src="/Assets/toptilt1.png" className="deco-img" alt="" />
       </div>
 
       {/* The Main Background Container */}
-      <div className="cta-bg-container h-[653px] bg-[url('/Assets/Ctabanner.png')] bg-no-repeat transform">
+      <div className="cta-bg-container h-[500px]">
+        <div className="elevate h-[430px] max-w-[1700px] bg-[#B58718] -skew-y-5">
         {/* Text Content with Skew - Preserved */}
-        <div className="transform -skew-y-1 flex flex-col justify-center items-center text-center text-white px-6 py-46 h-full">
+        <div className="transform skew-y-4 flex flex-col justify-center items-center text-center text-white px-6 py-46 h-full">
           <h2 className="cta-content text-4xl md:text-5xl lg:text-[50px] font-normal leading-tight max-w-4xl font-times">
             Your dream deserves more than ordinary walls. Let's build a home
             that's as extraordinary as you are.
@@ -88,9 +89,10 @@ const CTABanner = () => {
             Start Your Journey
           </Link>
         </div>
+        </div>
 
         {/* Down images - Preserved Structure */}
-        <div className="absolute right-0 bottom-12">
+        <div className="absolute right-0 bottom-12 ">
           <img src="/Assets/ctadown.png" className="deco-img" alt="" />
           <img
             src="/Assets/toptilt.png"

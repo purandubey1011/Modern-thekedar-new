@@ -28,8 +28,8 @@ const Hero = () => {
 
       // 👉 Button animation separately (no glitch)
       tl.from(".hero-btn", {
-        opacity: 0,
-        y: 30,
+        opacity: 2,
+        y: 20,
         duration: 0.8,
       });
     },
@@ -47,7 +47,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 lg:px-14 pt-20 lg:pt-26 pb-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
         {/* LEFT TEXT SECTION */}
         <div className="flex flex-col justify-center">
-          <h1 className="hero-animate-text text-3xl md:text-6xl font-times font-bold text-gray-800 leading-tight tracking-tight">
+          <h1 className="hero-animate-text text-3xl md:text-6xl font-times font-bold text-gray-800 leading-tight tracking-tight mt-6">
             For visionaries who demand more than just ordinary.
           </h1>
 
@@ -62,7 +62,7 @@ const Hero = () => {
             taste, or your dream.
           </p>
 
-          <button className="hero-btn mt-6 bg-yellow-700 text-white font-semibold  px-8 py-3 rounded-xl hover:bg-yellow-800 duration-300 w-max">
+          <button className="hero-btn bg-yellow-700 text-white font-semibold  px-8 py-3 rounded-xl hover:bg-yellow-800 duration-300 w-max">
             Enquire Now
           </button>
         </div>
