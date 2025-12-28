@@ -8,197 +8,174 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openServiceMenu, setOpenServiceMenu] = useState(false);
   const location = useLocation();
-  
+
   const headerRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const overlayRef = useRef(null);
 
-  // GSAP Animation: Items falling one by one
-  useGSAP(() => {
-    // Select all elements with the class 'animate-item' inside this component
-    gsap.from(".animate-item", {
-      y: -50,          // Start 50px above
-      opacity: 0,      // Start invisible
-      duration: 0.8,   // Duration of the fall
-      stagger: 0.1,    // 0.1s delay between each item falling
-      ease: "power2.out", // Smooth landing (no bounce, just professional stop)
-      clearProps: "all" // Cleanup styles after animation so hover effects work perfectly
+  /* ================= HEADER ENTRY ANIMATION ================= */
+  useGSAP(
+    () => {
+      gsap.from(".animate-item", {
+        y: -40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        clearProps: "all",
+      });
+    },
+    { scope: headerRef }
+  );
+
+  /* ================= MOBILE SIDEBAR ANIMATION ================= */
+  const openSidebar = () => {
+    setIsMobileMenuOpen(true);
+
+    requestAnimationFrame(() => {
+      gsap.fromTo(
+        overlayRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3 }
+      );
+
+      gsap.fromTo(
+        sidebarRef.current,
+        { x: "100%" },
+        { x: "0%", duration: 0.45, ease: "power3.out" }
+      );
     });
-  }, { scope: headerRef });
+  };
 
-  const serviceItems = [
-    { name: "TMT Standard", path: "/services/tmt-Standard" },
-    { name: "TMT Prime", path: "/services/tmt-Prime" },
-    { name: "TMT Luxe", path: "/services/tmt-Luxe" },
-  ];
+  const closeSidebar = () => {
+    gsap.to(sidebarRef.current, {
+      x: "100%",
+      duration: 0.35,
+      ease: "power3.in",
+    });
 
+    gsap.to(overlayRef.current, {
+      opacity: 0,
+      duration: 0.25,
+      onComplete: () => {
+        setIsMobileMenuOpen(false);
+        setOpenServiceMenu(false);
+      },
+    });
+  };
+
+  /* ================= NAV DATA ================= */
   const navItems = [
-    // { name: "Home", path: "/#" },
     { name: "About Us", path: "/about" },
-    { name: "Our Services", hasDropdown: true },
-    // { name: "Our Work", path: "/our-work" },
-    // { name: "Gallery", path: "/gallery" },
+    { name: "Our Services", path: "/our-services" },
     { name: "Careers", path: "/careers" },
     { name: "Blogs", path: "/blogs" },
   ];
 
   return (
-    <header 
-      ref={headerRef} 
-      className={`h-[12vh] fixed top-0 left-0 w-full z-50 transition-colors duration-300 px-0 lg:px-14 ${bgColor || 'bg-orange-100' } ${text} flex justify-between items-center`}
+    <header
+      ref={headerRef}
+      className={`fixed top-0 left-0 w-full h-[12vh] z-50 flex items-center
+        transition-colors duration-300 px-3 lg:px-14
+        ${bgColor || "bg-orange-100"} ${text}`}
     >
-      <nav className="container mx-auto py-3 flex justify-between items-center px-3 lg:px-0">
+      <nav className="container mx-auto flex justify-between items-center">
+        {/* LOGO */}
+        <Link
+          to="/"
+          className="animate-item text-3xl italic font-bold font-montserrat"
+        >
+          Tmt
+        </Link>
 
-       
-          {/* Logo - Added 'animate-item' */}
-          <Link 
-            to={'/'} 
-            className='animate-item text-3xl italic font-bold font-montserrat inline-block'
-          >
-            Tmt
-          </Link>
+        {/* DESKTOP NAV */}
+        <div className="hidden md:flex items-center space-x-6">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.path}
+              className={`animate-item font-montserrat transition
+                ${
+                  location.pathname === item.path
+                    ? "text-amber-500 font-semibold"
+                    : text || "text-[#161000]"
+                }
+                hover:text-amber-300`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 lg:text-[16px]">
-            {navItems.map((item) => (
-              // Added 'animate-item' to the wrapper div of each link
-              <div key={item.name} className="animate-item relative">
-                {item.hasDropdown ? (
-                  <button
-                    onClick={() => setOpenServiceMenu(!openServiceMenu)}
-                    className={` ${text || "text-[#161000]"} flex items-center text-[#161000] font-montserrat hover:text-amber-300 font-normal `}
-                  >
-                    {item.name}
-                    {openServiceMenu ? (
-                      <ChevronUp size={16} className="ml-1" />
-                    ) : (
-                      <ChevronDown size={16} className="ml-1" />
-                    )}
-                  </button>
-                ) : (
-                  <Link
-                    to={item.path}
-className={`
-  font-montserrat font-normal
-  ${location.pathname === item.path ? "text-amber-500 font-semibold" : (text || "text-[#161000]")}
-  hover:text-amber-300
-`}
-                  >
-                    {item.name}
-                  </Link>
-                )}
-
-                {/* Dropdown */}
-                {item.hasDropdown && openServiceMenu && (
-                  <div className="absolute left-0 mt-3 bg-white border border-gray-300 shadow-lg rounded-lg py-3 w-48 z-50">
-                    {serviceItems.map((s) => (
-                      <Link
-                        key={s.name}
-                        to={s.path}
-className={`
-  block px-4 py-2 text-sm
-  ${location.pathname === s.path ? "bg-gray-200 text-black font-semibold" : "text-gray-700"}
-  hover:bg-gray-100
-`}                        onClick={() => setOpenServiceMenu(false)}
-                      >
-                        {s.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-        
-        {/* Contact button - Added 'animate-item' */}
-        <div className={`animate-item ${border || "border-[#B58718]"} ${text || "text-[#B58718]"} hidden md:block border rounded-full px-9 py-3 hover:text-black transition-colors duration-300 font-semibold`}>
+        {/* DESKTOP CONTACT */}
+        <div
+          className={`animate-item hidden md:block border rounded-full px-9 py-3
+            ${border || "border-[#B58718]"} ${text || "text-[#B58718]"}
+            hover:text-black transition`}
+        >
           <Link to="/contact-us">Contact Us</Link>
         </div>
 
-        {/* Mobile Menu Button - Added 'animate-item' */}
-        <button className="md:hidden animate-item" onClick={() => setIsMobileMenuOpen(true)}>
+        {/* MOBILE MENU BUTTON */}
+        <button
+          className="md:hidden animate-item"
+          onClick={openSidebar}
+        >
           <Menu size={28} className="text-black" />
         </button>
-
       </nav>
 
-
-      {/* Mobile Sidebar (No changes to logic here) */}
+      {/* ================= MOBILE SIDEBAR ================= */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex">
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 bg-black/40 z-50 flex"
+        >
+          {/* SIDEBAR */}
+          <div
+            ref={sidebarRef}
+            className="relative w-72 bg-white h-full shadow-xl p-6"
+          >
+            {/* ❌ CANCEL ICON (FIXED & CLEAR) */}
+            <button
+              onClick={closeSidebar}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition"
+            >
+              <X size={26} className="text-black" />
+            </button>
 
-          {/* Sidebar Panel */}
-          <div className="w-72 bg-white h-full shadow-xl p-6 animate-slideIn">
-            {/* Close Button */}
-            <div className="flex justify-end">
-              <button onClick={() => setIsMobileMenuOpen(false)}>
-                <X size={26} className="text-black" />
-              </button>
-            </div>
-
-            {/* Navigation */}
-            <div className="mt-6 space-y-4">
-
+            {/* LINKS */}
+            <div className="mt-14 space-y-4">
               {navItems.map((item) => (
-                <div key={item.name}>
-                  {item.hasDropdown ? (
-                    <>
-                      <button
-                        onClick={() => setOpenServiceMenu(!openServiceMenu)}
-                        className="flex justify-between w-full text-left text-gray-800 font-medium"
-                      >
-                        {item.name}
-                        {openServiceMenu ? <ChevronUp /> : <ChevronDown />}
-                      </button>
-
-                      {openServiceMenu && (
-                        <div className="ml-4 mt-2 space-y-2">
-                          {serviceItems.map((s) => (
-                            <Link
-                              key={s.name}
-                              to={s.path}
-                              onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                setOpenServiceMenu(false);
-                              }}
-                              className="block text-sm text-gray-700 hover:text-amber-600"
-                            >
-                              {s.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-className={`
-  block text-[17px]
-  ${location.pathname === item.path ? "text-amber-500 font-semibold" : "text-black"}
-`}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={closeSidebar}
+                  className={`block text-[17px]
+                    ${
+                      location.pathname === item.path
+                        ? "text-amber-500 font-semibold"
+                        : "text-black"
+                    }`}
+                >
+                  {item.name}
+                </Link>
               ))}
 
-              {/* Mobile Contact Button */}
+              {/* CONTACT */}
               <Link
-                to="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-6 inline-block text-[#B58718] border border-[#B58718] rounded-full px-6 py-2 hover:text-black"
+                to="/contact-us"
+                onClick={closeSidebar}
+                className="inline-block mt-6 text-[#B58718] border border-[#B58718]
+                  rounded-full px-6 py-2 hover:text-black"
               >
                 Contact Us
               </Link>
             </div>
           </div>
 
-          {/* Click overlay to close */}
-          <div
-            className="flex-1"
-            onClick={() => setIsMobileMenuOpen(false)}
-          ></div>
+          {/* OVERLAY CLICK */}
+          <div className="flex-1" onClick={closeSidebar}></div>
         </div>
       )}
     </header>

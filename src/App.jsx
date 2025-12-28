@@ -12,6 +12,7 @@ import Prime from "./pages/Service/Prime";
 import ContactUs from "./pages/ContactUs";
 import Blog from "./pages/Blog";
 import BlogDetail from "./components/Sections/BlogPage/blogDetail";
+import Ourservice from './pages/Ourservices.jsx'
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        {/* <Route path='/our-services' element={<Services/>}/> */}
+        <Route path='/our-services' element={<Ourservice/>}/>
 
         <Route path="/services/tmt-Standard" element={<Standard />} />
         <Route path="/services/tmt-Prime" element={<Prime />} />
