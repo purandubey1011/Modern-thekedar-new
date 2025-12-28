@@ -16,6 +16,58 @@ body,html{
 }
 
 
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-gradient-slow {
+  animation: gradientFlow 15s ease-in-out infinite;
+}
+
+
+@keyframes gradientMove {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.animate-mesh {
+  animation: gradientMove 15s ease infinite;
+}
+
+.stripe-wave-texture {
+  background:
+    radial-gradient(
+      120% 80% at 0% 0%,
+      rgba(255, 255, 255, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      120% 80% at 100% 100%,
+      rgba(255, 255, 255, 0.14),
+      transparent 65%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0)
+    );
+  opacity: 1;
+  mix-blend-mode: soft-light;
+  filter: blur(4px);
+}
+
+
+
+
 
 
 
