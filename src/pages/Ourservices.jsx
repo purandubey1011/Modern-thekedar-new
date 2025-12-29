@@ -12,7 +12,7 @@ const Ourservices = () => {
   return (
     <>
       <OurServiceHero/>
-      <ServicesCards/>
+      {/* <ServicesCards/> */}
       <ServiceDetails/>
       <ServicesTable/>
        <CTABanner />
