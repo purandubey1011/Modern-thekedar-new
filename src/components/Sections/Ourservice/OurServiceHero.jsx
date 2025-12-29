@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
 import Header from "../../common/Header";
@@ -60,55 +59,57 @@ const HeroService = () => {
   useLayoutEffect(() => {
     if (!isGsapReady) return;
     const gsap = window.gsap;
-    const ctx = gsap.context(() => {
-      window.ScrollTrigger.create({
-        trigger: mainContainer.current,
-        start: "top top",
-        end: "+=150%",
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-      });
+    let mm = gsap.matchMedia();
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
+    mm.add("(min-width: 768px)", () => {
+      const ctx = gsap.context(() => {
+        window.ScrollTrigger.create({
           trigger: mainContainer.current,
           start: "top top",
-          end: "+=70%",
+          end: "+=150%",
+          pin: true,
+          pinSpacing: true,
           scrub: 1,
-        },
-      });
+        });
 
-      tl.to(".hero-text-content", { opacity: 0, y: -50 }, 0);
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: mainContainer.current,
+            start: "top top",
+            end: "+=70%",
+            scrub: 1,
+          },
+        });
 
-      movingImagesRef.current.forEach((img, idx) => {
-        const target = targetRefs.current[idx];
-        if (!img || !target) return;
+        tl.to(".hero-text-content", { opacity: 0, y: -50 }, 0);
 
-        tl.to(
-          img,
-          {
+        movingImagesRef.current.forEach((img, idx) => {
+          const target = targetRefs.current[idx];
+          if (!img || !target) return;
+
+          tl.to(img, {
             x: () => {
               const t = target.getBoundingClientRect();
               const i = img.getBoundingClientRect();
-              return (t.left + t.width / 2 - (i.left + i.width / 2)+50+(idx*41));
+              return (t.left + t.width / 2 - (i.left + i.width / 2)) + 42 + idx * 41;
             },
             y: () => {
               const t = target.getBoundingClientRect();
               const i = img.getBoundingClientRect();
-              return (t.top + t.height / 2 - (i.top + i.height / 2)+30+(idx*21));
+              return (t.top + t.height / 2 - (i.top + i.height / 2)) + 44 + idx * 20;
             },
             width: () => target.offsetWidth,
             height: () => target.offsetHeight,
             rotation: 0,
-            borderRadius: "12px 12px 0 0",
+            borderRadius: "10px 10px 0 0",
             ease: "none",
-          },
-          0
-        );
-      });
-    }, mainContainer);
-    return () => ctx.revert();
+          }, 0);
+        });
+      }, mainContainer);
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, [isGsapReady]);
 
   if (!isGsapReady) return (
@@ -120,23 +121,44 @@ const HeroService = () => {
   return (
     <div ref={mainContainer} className="relative w-full overflow-hidden">
       {/* --- HERO SECTION --- */}
-      <section className="relative h-screen w-full bg-[#B58718] z-30">
+      <section className="relative min-h-screen w-full bg-[#B58718] z-30 flex flex-col">
         <Header bgColor="transparent" text="text-white" border="border-white/30" />
-        <div className="hero-text-content h-full flex items-center px-6 md:px-20 relative z-10">
-          <div className="text-white max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6">Our Services</h1>
-            <p className="text-lg text-white/90">              Engineered with precision, our TMT bars redefine strength and
-               reliability. Designed to withstand extreme conditions, they               guarantee safety and durability for every project, big or small</p>
+        
+        {/* Responsive Grid Layout */}
+        <div className="flex-grow flex items-center">
+          <div className="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+            
+            {/* LEFT CONTENT */}
+            <div className="hero-text-content text-white">
+              <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 mt-12">
+                Our <br className="hidden md:block"/> Services
+              </h1>
+              <p className="text-lg text-white/90 max-w-lg">
+                Engineered with precision, our TMT bars redefine strength and reliability. 
+                Designed to withstand extreme conditions, they guarantee safety and durability for every project.
+              </p>
+            </div>
+
+            {/* RIGHT IMAGE (Mobile Only Static Version) */}
+            <div className="md:hidden relative flex justify-center">
+               <div className="w-[90vw] h-[45vh] rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src="https://ik.imagekit.io/b9tt0xvd7/Falverra/serviceherobuilding.jpg" 
+                    alt="Service Hero" 
+                    className="w-full h-full object-cover"
+                  />
+               </div>
+            </div>
           </div>
         </div>
 
-        {/* FLOATING IMAGES */}
-        <div className="absolute inset-0 z-40 pointer-events-none">
+        {/* FLOATING IMAGES (Desktop Animation Only) */}
+        <div className="hidden md:block absolute inset-0 z-40 pointer-events-none">
           {servicesData.map((service, i) => (
             <div
               key={i}
               ref={(el) => (movingImagesRef.current[i] = el)}
-              className="absolute w-[280px] h-[380px] md:w-[22vw] md:h-[55vh] right-[10%] top-[30%] shadow-2xl overflow-hidden rounded-2xl will-change-transform"
+              className="absolute w-[22vw] h-[55vh] right-[10%] top-[30%] shadow-2xl overflow-hidden rounded-2xl will-change-transform"
               style={{
                 zIndex: 40 - i,
                 transform: `translate(${i * 40}px, ${i * 20}px) rotate(${i * 5}deg)`,
@@ -148,23 +170,29 @@ const HeroService = () => {
         </div>
       </section>
 
-      {/* --- SERVICES SECTION (MATCHED UI) --- */}
+      {/* --- SERVICES SECTION --- */}
       <section className="relative min-h-screen py-32 bg-[#FAF8F3] z-10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {servicesData.map((service, i) => (
               <div
                 key={i}
                 onClick={() => navigate(service.path)}
                 className="cursor-pointer bg-[#B587180D] rounded-md overflow-hidden transition-transform duration-500 hover:-translate-y-2 group"
               >
-                {/* TARGET FOR GSAP IMAGE */}
+                {/* TARGET FOR GSAP (Desktop) / STATIC IMAGE (Mobile) */}
                 <div 
                    ref={(el) => (targetRefs.current[i] = el)}
-                   className="w-full aspect-[3/2] overflow-hidden bg-transparent"
-                />
+                   className="w-full aspect-[3/2] overflow-hidden bg-gray-200"
+                >
+                    {/* Only visible on mobile to provide the visual content */}
+                    <img 
+                        src={service.image} 
+                        className="md:hidden w-full h-full object-cover" 
+                        alt={service.title} 
+                    />
+                </div>
 
-                {/* CONTENT (Pixel Perfect Match) */}
                 <div className="py-5 px-3">
                   <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">
                     {service.title}
@@ -172,15 +200,8 @@ const HeroService = () => {
                   <p className="text-sm text-[#6B6B6B] mb-6 leading-relaxed max-w-[90%]">
                     {service.fullDesc}
                   </p>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(service.path);
-                    }}
-                    className="flex items-center gap-2 text-[#B58718] font-semibold text-sm group-hover:gap-3 transition-all"
-                  >
-                    Learn More
-                    <ChevronDown size={16} />
+                  <button className="flex items-center gap-2 text-[#B58718] font-semibold text-sm">
+                    Learn More <ChevronDown size={16} />
                   </button>
                 </div>
               </div>
@@ -193,54 +214,6 @@ const HeroService = () => {
 };
 
 export default HeroService;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
