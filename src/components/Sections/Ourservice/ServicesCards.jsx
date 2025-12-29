@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
+  const services = [
   {
     title: "TMT Standard",
     desc: "Need strength and quality within a good budget?",

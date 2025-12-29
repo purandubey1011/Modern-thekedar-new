@@ -59,7 +59,7 @@ const Hero = () => {
   }}
 >
   {/* 🌊 WAVE TEXTURE OVERLAY */}
-  <div className="absolute inset-0 stripe-wave-texture" />
+  {/* <div className="absolute inset-0 stripe-wave-texture" /> */}
 
 </div>
       <div className="container mx-auto px-4 lg:px-14 pt-20 lg:pt-26 pb-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
