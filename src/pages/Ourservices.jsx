@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 
 const Ourservices = () => {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <OurServiceHero/>
       {/* <ServicesCards/> */}
       <ServiceDetails/>
@@ -18,7 +18,7 @@ const Ourservices = () => {
        <CTABanner />
         <MoreFAQ />
         <Footer/>
-    </>
+    </div>
   );
 };
 
