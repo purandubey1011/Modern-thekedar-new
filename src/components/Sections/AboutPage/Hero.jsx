@@ -29,16 +29,16 @@ const Hero = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="bg-white overflow-hidden min-h-screen flex flex-col">
+    <section ref={containerRef} className="bg-white overflow-hidden md:min-h-screen flex flex-col">
       {/* Text content area */}
-      <div className="container mx-auto px-6 pt-20 pb-12 md:pt-32 md:pb-20">
+      <div className="container mx-auto px-6 pt-20 pb-12 md:pt-32 md:pb-0">
         <h1 className="hero-title text-4xl md:text-5xl lg:text-[80px] font-bold text-[#20000F] max-w-2xl mt-9 leading-tight">
           Building Homes <br /> That Reflect You
         </h1>
       </div>
       
       {/* The Custom Slanted Shape */}
-<div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mt-10 overflow-hidden">
+<div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mt-0 overflow-hidden">
   <div
     className="hero-shape w-full h-full animate-liquid-sun"
     style={{
