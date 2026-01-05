@@ -119,11 +119,13 @@ const HeroService = () => {
   );
 
   return (
+
+    <>
+    <Header bgColor="" text="black" border="border"/>        
+
     <div ref={mainContainer} className="relative w-full overflow-hidden">
       {/* --- HERO SECTION --- */}
       <section className="relative min-h-screen w-full bg-[#B58718] z-30 flex flex-col">
-        <Header bgColor="transparent" text="text-white" border="border-white/30" />
-        
         {/* Responsive Grid Layout */}
         <div className="flex-grow flex items-center">
           <div className="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
@@ -210,6 +212,8 @@ const HeroService = () => {
         </div>
       </section>
     </div>
+    
+    </>
   );
 };
 

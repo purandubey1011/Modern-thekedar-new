@@ -1,10 +1,13 @@
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const Header = ({ bgColor = "", text = "", border = "" }) => {
+
+
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openServiceMenu, setOpenServiceMenu] = useState(false);
   const location = useLocation();
@@ -12,6 +15,14 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   const headerRef = useRef(null);
   const sidebarRef = useRef(null);
   const overlayRef = useRef(null);
+
+
+
+    useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   /* ================= HEADER ENTRY ANIMATION ================= */
   useGSAP(
@@ -73,11 +84,13 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   ];
 
   return (
-    <header
+<header
       ref={headerRef}
-      className={`fixed top-0 left-0 w-full h-[12vh] z-50 flex items-center
-        transition-colors duration-300 px-3 lg:px-14
-        ${bgColor || "bg-orange-100"} ${text}`}
+      className={`fixed top-0 left-0 w-full h-[10vh] lg:h-[12vh] z-50 flex items-center transition-all duration-500 px-3 lg:px-14
+        ${isScrolled 
+          ? "bg-slate-500/10 backdrop-blur-md border-white/20 shadow-sm" 
+          : "bg-transparent"
+        }`}
     >
       <nav className="container mx-auto flex justify-between items-center">
         {/* LOGO */}

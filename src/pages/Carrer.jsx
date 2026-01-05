@@ -118,9 +118,9 @@ const Carrer = () => {
 
   return (
   <div ref={containerRef} className="antialiased overflow-x-hidden">
-      <Header bgColor="bg-[#B58718]" text="text-white" border="border" />
+      <Header bgColor="bg-[#B58718]" text="black" border="border" />
 
-      <div className="min-h-screen  bg-gray-100 pt-10 lg:pt-6">
+      <div className="min-h-screen bg-[#B58718] pt-10 lg:pt-6">
           <div className="career-content bg-[#B58718] text-white shadow-2xl p-2 md:p-12">
             <h2 className="page-title text-3xl md:text-5xl font-bold font-times text-center mb-2 pt-6 lg:mb-4 lg:text-[80px]">
               Join Our Team

@@ -43,25 +43,22 @@ const Hero = () => {
     >
       {/* 🎯 ROTATED RECTANGLE BG — EXACT screenshot style */}
 
-<div 
-   className="absolute w-[140vw] h-screen  bg-orange-100  rounded-3xl -rotate-6 top-[-45%] left-[-25%] animate-gradient-slow"
-  style={{
-    background: `
-      radial-gradient(at 10% 20%, rgba(255, 191, 0, 0.6) 0px, transparent 50%), 
-      radial-gradient(at 80% 10%, rgba(255, 87, 51, 0.5) 0px, transparent 50%), 
-      radial-gradient(at 40% 50%, rgba(138, 43, 226, 0.4) 0px, transparent 50%), 
-      radial-gradient(at 70% 80%, rgba(255, 154, 0, 0.5) 0px, transparent 50%), 
-      radial-gradient(at 10% 90%, rgba(255, 215, 0, 0.4) 0px, transparent 50%),
-      #FFF7ED
-    `,
-    backgroundSize: '200% 200%',
-    filter: 'blur(60px)',
-  }}
->
-  {/* 🌊 WAVE TEXTURE OVERLAY */}
-  {/* <div className="absolute inset-0 stripe-wave-texture" /> */}
-
-</div>
+      <div 
+         className="absolute w-[140vw] h-screen rounded-3xl -rotate-6 top-[-45%] left-[-25%] animate-gradient-slow"
+         style={{
+           background: `
+             radial-gradient(at 10% 20%, #ffedd4 0px, transparent 50%), 
+             radial-gradient(at 80% 10%, #c19838 0px, transparent 50%), 
+             radial-gradient(at 40% 50%, #eab308 0px, transparent 50%), 
+             radial-gradient(at 70% 80%, #c19838 0px, transparent 50%), 
+             radial-gradient(at 10% 90%, #ffedd4 0px, transparent 50%),
+             #fef3c7
+           `,
+           backgroundSize: '200% 200%',
+           filter: 'blur(70px)',
+           opacity: 0.7 // Softens the blend for a premium look
+         }}
+      />
       <div className="container mx-auto px-4 lg:px-14 pt-20 lg:pt-26 pb-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
         {/* LEFT TEXT SECTION */}
         <div className="flex flex-col justify-center">

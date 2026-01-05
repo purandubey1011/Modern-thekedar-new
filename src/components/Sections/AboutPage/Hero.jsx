@@ -18,9 +18,8 @@ const Hero = () => {
       duration: 1,
       delay: 0.2
     })
-    // Updated selector to target the custom div
     .from(".hero-shape", {
-      x: 100, // Slides in from the right
+      x: 100, 
       opacity: 0,
       duration: 1.2,
       ease: "power2.out"
@@ -37,40 +36,37 @@ const Hero = () => {
         </h1>
       </div>
       
-      {/* The Custom Slanted Shape */}
-<div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mt-0 overflow-hidden">
-  <div
-    className="hero-shape w-full h-full animate-liquid-sun"
-    style={{
-      backgroundColor: "#ffb000",
-      backgroundImage: `
-        radial-gradient(at 0% 0%, #ff0055 0px, transparent 50%),   /* Hot Pink for Depth */
-        radial-gradient(at 100% 0%, #ffea00 0px, transparent 50%), /* Bright Neon Yellow */
-        radial-gradient(at 100% 100%, #ff8c00 0px, transparent 50%),/* Deep Orange */
-        radial-gradient(at 0% 100%, #fff700 0px, transparent 50%), /* Pure Yellow */
-        radial-gradient(at 50% 50%, #ffffff 0px, transparent 50%)   /* Central White Glow */
-      `,
-      backgroundSize: "150% 150%",
-      clipPath: "polygon(0 40%, 100% 0, 100% 60%, 0% 100%)",
-      filter: "saturate(1.8) contrast(1.2) drop-shadow(0px 30px 60px rgba(255, 165, 0, 0.5))",
-    }}
-  />
+      {/* The Custom Slanted Shape - Smooth Diagonal Flow */}
+      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mt-0 overflow-hidden">
+        <div
+          className="hero-shape w-full h-full animate-smooth-flow"
+          style={{
+            background: `linear-gradient(135deg, 
+              #ffedd4 0%, 
+              #facc15 25%, 
+              #c19838 50%, 
+              #facc15 75%, 
+              #ffedd4 100%
+            )`,
+            backgroundSize: "400% 400%",
+            clipPath: "polygon(0 40%, 100% 0, 100% 60%, 0% 100%)",
+          }}
+        />
 
-  <style jsx global>{`
-    @keyframes liquid-sun {
-      0% { background-position: 0% 0%; }
-      25% { background-position: 100% 0%; }
-      50% { background-position: 100% 100%; }
-      75% { background-position: 0% 100%; }
-      100% { background-position: 0% 0%; }
-    }
-    .animate-liquid-sun {
-      animation: liquid-sun 8s infinite alternate ease-in-out;
-    }
-  `}</style>
-</div>
-
-
+        <style jsx global>{`
+          @keyframes smooth-flow {
+            0% {
+              background-position: 0% 0%;
+            }
+            100% {
+              background-position: 100% 100%;
+            }
+          }
+          .animate-smooth-flow {
+            animation: smooth-flow 10s linear infinite;
+          }
+        `}</style>
+      </div>
     </section>
   );
 }
