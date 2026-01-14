@@ -49,80 +49,80 @@ const LegalIcon = () => (
    BLOG PAGE CONTENT DATA
 -------------------------------------------- */
 
-  const blogPosts = [
-    {
-      id: 1,
-      imageUrl: "/Assets/Bpost1.png",
-      category: "Architecture",
-      title: "Home Staging Tips to Attract Buyers Quickly",
-      date: "July 9, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 2,
-      imageUrl: "/Assets/Bpost2.png",
-      category: "Building",
-      title: "Navigating the Mortgage Approval Process",
-      date: "July 9, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 3,
-      imageUrl: "/Assets/Bpost3.png",
-      category: "Checklist",
-      title: "The Ultimate Checklist for First-Time Home Buyers",
-      date: "July 9, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 4,
-      imageUrl: "/Assets/Bpost4.png",
-      category: "Staging",
-      title: "Effective Interior Staging for Faster Sales",
-      date: "July 10, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 5,
-      imageUrl: "/Assets/Bpost5.png",
-      category: "Property",
-      title: "Modern Villa Designs That Inspire",
-      date: "July 11, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 6,
-      imageUrl: "/Assets/Bpost6.png",
-      category: "Design",
-      title: "Top Interior Design Trends of 2024",
-      date: "July 12, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 7,
-      imageUrl: "/Assets/Bpost7.png",
-      category: "Tips",
-      title: "How to Increase Property Value Before Selling",
-      date: "July 13, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 8,
-      imageUrl: "/Assets/Bpost8.png",
-      category: "Luxury",
-      title: "Exploring the Most Luxurious Homes of 2024",
-      date: "July 14, 2024",
-      author: "Brooklyn Simmons",
-    },
-    {
-      id: 9,
-      imageUrl: "/Assets/Bpost9.png",
-      category: "Technology",
-      title: "Smart Home Technologies You Should Know About",
-      date: "July 15, 2024",
-      author: "Brooklyn Simmons",
-    }
-  ];
+const blogPosts = [
+  {
+    id: 1,
+    imageUrl: "/Assets/Bpost1.png",
+    category: "Architecture",
+    title: "Home Staging Tips to Attract Buyers Quickly",
+    date: "July 9, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 2,
+    imageUrl: "/Assets/Bpost2.png",
+    category: "Building",
+    title: "Navigating the Mortgage Approval Process",
+    date: "July 9, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 3,
+    imageUrl: "/Assets/Bpost3.png",
+    category: "Checklist",
+    title: "The Ultimate Checklist for First-Time Home Buyers",
+    date: "July 9, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 4,
+    imageUrl: "/Assets/Bpost4.png",
+    category: "Staging",
+    title: "Effective Interior Staging for Faster Sales",
+    date: "July 10, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 5,
+    imageUrl: "/Assets/Bpost5.png",
+    category: "Property",
+    title: "Modern Villa Designs That Inspire",
+    date: "July 11, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 6,
+    imageUrl: "/Assets/Bpost6.png",
+    category: "Design",
+    title: "Top Interior Design Trends of 2024",
+    date: "July 12, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 7,
+    imageUrl: "/Assets/Bpost7.png",
+    category: "Tips",
+    title: "How to Increase Property Value Before Selling",
+    date: "July 13, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 8,
+    imageUrl: "/Assets/Bpost8.png",
+    category: "Luxury",
+    title: "Exploring the Most Luxurious Homes of 2024",
+    date: "July 14, 2024",
+    author: "Brooklyn Simmons",
+  },
+  {
+    id: 9,
+    imageUrl: "/Assets/Bpost9.png",
+    category: "Technology",
+    title: "Smart Home Technologies You Should Know About",
+    date: "July 15, 2024",
+    author: "Brooklyn Simmons",
+  }
+];
 
 
 const filterCategories = [
@@ -140,7 +140,7 @@ const filterCategories = [
 const Blog = () => {
   const containerRef = useRef(null);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
@@ -161,66 +161,66 @@ const Blog = () => {
       duration: 0.8,
       ease: "power3.out"
     })
-    .from(".page-desc", {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power2.out"
-    }, "-=0.5")
-    
-    // 2. Filter Buttons Entrance (Staggered Pop)
-    .from(".filter-btn", {
-      opacity: 2,
-      y: 20,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: "back.out(1.7)"
-    }, "-=0.3")
-    
-    // 3. Blog Cards Entrance (Staggered Slide Up)
-    .from(".blog-card", {
-      y: 60,
-      opacity: 2,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "-=0.2");
+      .from(".page-desc", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      }, "-=0.5")
+
+      // 2. Filter Buttons Entrance (Staggered Pop)
+      .from(".filter-btn", {
+        opacity: 2,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "back.out(1.7)"
+      }, "-=0.3")
+
+      // 3. Blog Cards Entrance (Staggered Slide Up)
+      .from(".blog-card", {
+        y: 60,
+        opacity: 2,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out"
+      }, "-=0.2");
 
   }, { scope: containerRef });
 
 
   return (
     <div ref={containerRef} className="bg-white font-sans overflow-x-hidden">
-
-      {/* TOP HEADER */}
+      {/* HEADER */}
       <Header bgColor="bg-white" text="" border="" />
 
-      {/* MAIN BLOG UI */}
-      <div className="bg-white py-10 lg:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-
+      {/* BLOG SECTION */}
+      <section className="bg-white py-12 lg:py-24">
+        {/* 🎯 87vw WRAPPER */}
+        <div
+          className="mx-auto w-full px-4 lg:px-0"
+          style={{ maxWidth: "87vw" }}
+        >
           {/* Page Intro */}
           <div className="text-center mb-4">
-            <h2 className="page-title text-4xl md:text-5xl font-bold font-times lg:text-[80px] lg:max-w-2xl lg:ml-79 text-[#20000F] mb-9 mt-12">
-              Insights, Tips & Property Advice
-            </h2>
-            <p className="page-desc text-lg text-gray-600 max-w-3xl mx-auto">
-              Stay informed with expert-backed articles on buying, renting, investing,  
-              and property trends across Siliguri, Bihar, Sikkim & North Bengal.
-            </p>
+            <h2 className="page-title text-4xl md:text-5xl font-bold font-times lg:text-[70px] lg:max-w-2xl lg:ml-79 text-[#20000F] mb-9 mt-12"> Insights, Tips & Property Advice </h2>
+            <p className="page-desc text-md text-gray-600 max-w-3xl mx-auto font-medium mb-3"> Stay informed with expert-backed articles on buying, renting, investing, and property trends across Siliguri, Bihar, Sikkim & North Bengal. </p>
           </div>
 
           {/* FILTER BUTTONS */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
             {filterCategories.map((cat) => (
               <button
                 key={cat.name}
-                className={`filter-btn flex items-center gap-2 py-3 px-9 font-normal font-montserrat rounded-full text-[14px] transition-all duration-300 transform hover:scale-105 active:scale-95
-                  ${cat.active
+                className={`
+                filter-btn flex items-center gap-2
+                px-8 py-3 rounded-full text-sm font-montserrat
+                transition-all duration-300
+                ${cat.active
                     ? "bg-[#B58718] text-white shadow-lg"
-                    : "bg-transparent border border-[#B58718] text-[#B58718] hover:bg-yellow-50"
+                    : "border border-[#B58718] text-[#B58718] hover:bg-yellow-50"
                   }
-                `}
+              `}
               >
                 {cat.icon}
                 <span>{cat.name}</span>
@@ -228,31 +228,29 @@ const Blog = () => {
             ))}
           </div>
 
-          {/* BLOG CARDS GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+          {/* BLOG GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
             {blogPosts.map((post) => (
-                <Link key={post.id} to={`/blog-details`}>
-
-              <BlogCard
-                key={post.id}
-                imageUrl={post.imageUrl}
-                category={post.category}
-                title={post.title}
-                date={post.date}
-                author={post.author}
-              />
+              <Link key={post.id} to={`/blog-details`}>
+                <BlogCard
+                  imageUrl={post.imageUrl}
+                  category={post.category}
+                  title={post.title}
+                  date={post.date}
+                  author={post.author}
+                />
               </Link>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA + FOOTER */}
       <CTABanner />
       <Footer />
-
     </div>
   );
+
 };
 
 export default Blog;

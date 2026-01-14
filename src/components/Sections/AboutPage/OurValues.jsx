@@ -62,7 +62,7 @@ const OurValues = () => {
 
   return (
     <section ref={containerRef} className="py-12 lg:py-20 bg-[rgb(251,249,243)] overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-36">
+      <div className="container mx-auto max-w-[67vw]">
         <h2 className="values-title text-4xl font-times font-bold text-[#000000] mb-3 text-center">
           Our Values
         </h2>

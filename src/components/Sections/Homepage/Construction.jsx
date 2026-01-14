@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 const Construction = () => {
@@ -49,91 +48,86 @@ const Construction = () => {
     },
   ];
 
-  useGSAP(() => {
-    // 1. Left Panel Animation (Sticky Side)
-    gsap.from(".left-panel-anim", {
-      opacity: 0,
-      x: -30,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        toggleActions: "play reverse play reverse",
-      },
-    });
-
-    // 2. Service Items Animation (Right Side)
-    servicesRef.current.forEach((el, index) => {
-      if (!el) return;
-
-      const border = el.querySelector(".service-border");
-      const content = el.querySelectorAll(".service-content");
-
-      const tl = gsap.timeline({
+  useGSAP(
+    () => {
+      gsap.from(".left-panel-anim", {
+        opacity: 0,
+        x: -30,
+        duration: 1,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: el,
-          start: "top 55%", // Starts when top of item hits 85% of viewport height
-          end: "top 10%",
-          // toggleActions: "play reverse play reverse", 
-          // Triggers every time on scroll
+          trigger: containerRef.current,
+          start: "top 80%",
         },
       });
 
-      // Step A: Draw the border line from 0% width to 100%
-      tl.fromTo(
-        border,
-        { width: "0%", opacity: 0 },
-        { width: "100%", opacity: 1, duration: 0.6, ease: "power2.inOut" }
-      )
-      // Step B: Slide up text content
-      .from(
-        content,
-        {
-          y: 20,
-          opacity: 0,
-          duration: 0.2,
-          stagger: 0.2,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      ); // Slight overlap with border animation
-    });
-  }, { scope: containerRef });
+      servicesRef.current.forEach((el) => {
+        if (!el) return;
+
+        const border = el.querySelector(".service-border");
+        const content = el.querySelectorAll(".service-content");
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top 55%",
+            end: "top 10%",
+          },
+        });
+
+        tl.fromTo(
+          border,
+          { width: "0%", opacity: 0 },
+          { width: "100%", opacity: 1, duration: 0.6 }
+        ).from(
+          content,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.3,
+            stagger: 0.2,
+          },
+          "-=0.2"
+        );
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <section ref={containerRef} className="bg-[#FBF9F3] text-black py-10 lg:py-24 font-sans">
-      <div className="container mx-auto px-6 lg:px-12">
-        
-        {/* Grid Layout */}
+    <section
+      ref={containerRef}
+      className="bg-[#FBF9F3] text-black py-10 lg:py-24 font-sans"
+    >
+      {/* 🎯 SAME WRAPPER AS HEADER & HERO */}
+      <div
+        className="mx-auto w-full px-4 lg:px-0"
+        style={{ maxWidth: "87vw" }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          
-          {/* Left Column: Intro & CTA (Sticky) */}
-          <div className="left-panel-anim flex flex-col justify-between items-start  lg:sticky lg:top-24 lg:h-[calc(100vh-12rem)]">
-            
-            <div className="space-y-4 lg:space-y-5">
-              <div className="border border-[#CFA036] text-[#CFA036] px-4 py-2 w-fit text-lg font-medium tracking-wide">
+          {/* LEFT PANEL */}
+          <div className="left-panel-anim flex flex-col justify-between items-start lg:sticky lg:top-24 lg:h-[calc(100vh-12rem)]">
+            <div className="space-y-5">
+              <div className="border border-[#CFA036] text-[#CFA036] px-4 py-2 w-fit text-lg font-medium">
                 How We Work
               </div>
-              
-              <h2 className="font-times text-4xl lg:text-5xl font-medium leading-tight text-black">
+
+              <h2 className="font-times text-4xl lg:text-5xl font-medium leading-tight">
                 Comprehensive <br /> Construction Services
               </h2>
-              
+
               <p className="text-gray-600 leading-relaxed text-md lg:text-lg font-poppins">
                 At Buildpro, we offer a wide range of construction services
-                tailored to meet the unique needs of our clients. From initial
-                planning to final touches, our skilled team is dedicated to
-                delivering excellence in every project.
+                tailored to meet the unique needs of our clients.
               </p>
-            <button className="bg-[#B58718] hover:bg-[#967014] transition-colors text-white text-lg font-medium rounded-md px-6 lg:px-8 py-2 lg:py-3 mt-6 lg:mt-0 w-fit shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
-              Enquire Now
-            </button>
-            </div>
 
+              <button className="bg-[#B58718] hover:bg-[#967014] transition text-white text-lg font-medium rounded-md px-6 lg:px-8 py-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
+                Enquire Now
+              </button>
+            </div>
           </div>
 
-          {/* Right Column: Services List */}
+          {/* RIGHT PANEL */}
           <div className="flex flex-col lg:mt-32">
             {services.map((service, index) => (
               <div
@@ -141,20 +135,17 @@ const Construction = () => {
                 ref={(el) => (servicesRef.current[index] = el)}
                 className="relative grid grid-cols-1 md:grid-cols-2 gap-6 py-12 group"
               >
-                {/* Animated Top Border (Replaces standard border-t for animation control) */}
                 <div className="service-border absolute top-0 left-0 h-[1px] bg-[#CFA036] w-full opacity-0"></div>
 
-                {/* Left part: Number and Title */}
                 <div className="service-content flex gap-6 items-start">
-                  <span className="text-3xl font-medium text-[#CFA036] opacity-90">
+                  <span className="text-3xl font-medium text-[#CFA036]">
                     {service.num}
                   </span>
-                  <h3 className="text-xl font-semibold font-montserrat text-gray-900 mt-1 group-hover:text-[#B58718] transition-colors duration-300">
+                  <h3 className="text-xl font-semibold font-montserrat mt-1 group-hover:text-[#B58718] transition">
                     {service.title}
                   </h3>
                 </div>
 
-                {/* Right part: Description */}
                 <div className="service-content">
                   <p className="text-gray-600 leading-relaxed text-lg font-montserrat">
                     {service.description}
@@ -162,11 +153,9 @@ const Construction = () => {
                 </div>
               </div>
             ))}
-            
-            {/* Bottom Closing Border */}
+
             <div className="w-full h-[1px] bg-gray-300 mt-2 opacity-50"></div>
           </div>
-
         </div>
       </div>
     </section>

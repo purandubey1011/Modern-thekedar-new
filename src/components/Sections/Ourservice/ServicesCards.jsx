@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
-  const services = [
+const services = [
   {
     title: "TMT Standard",
     desc: "Need strength and quality within a good budget?",
@@ -54,18 +54,25 @@ const ServicesCards = () => {
   );
 
   return (
-    <section ref={containerRef} className="bg-[#FAF8F3] py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <section
+      ref={containerRef}
+      className="bg-[#FAF8F3] py-20 overflow-hidden"
+    >
+      {/* 🎯 SAME 87vw WRAPPER */}
+      <div
+        className="mx-auto w-full px-4 lg:px-0"
+        style={{ maxWidth: "87vw" }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((item, index) => (
             <div
               key={index}
               onClick={() => navigate(item.path)}
               className="
-    service-card cursor-pointer
-    bg-[#B587180D] rounded-md overflow-hidden
-    transition-transform duration-500 hover:-translate-y-2
-  "
+                service-card cursor-pointer
+                bg-[#B587180D] rounded-md overflow-hidden
+                transition-transform duration-500 hover:-translate-y-2
+              "
             >
               {/* IMAGE */}
               <div className="w-full aspect-[3/2] overflow-hidden">
@@ -77,7 +84,7 @@ const ServicesCards = () => {
               </div>
 
               {/* CONTENT */}
-              <div className="py-5 px-3">
+              <div className="py-5 px-4">
                 <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">
                   {item.title}
                 </h3>
@@ -88,7 +95,7 @@ const ServicesCards = () => {
 
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // ⛔ card click double na ho
+                    e.stopPropagation();
                     navigate(item.path);
                   }}
                   className="flex items-center gap-2 text-[#B58718] font-semibold text-sm hover:gap-3 transition-all"

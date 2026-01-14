@@ -1,24 +1,21 @@
-import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const Header = ({ bgColor = "", text = "", border = "" }) => {
-
-
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openServiceMenu, setOpenServiceMenu] = useState(false);
+
   const location = useLocation();
 
   const headerRef = useRef(null);
   const sidebarRef = useRef(null);
   const overlayRef = useRef(null);
 
-
-
-    useEffect(() => {
+  /* ================= SCROLL EFFECT ================= */
+  useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -39,7 +36,7 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
     { scope: headerRef }
   );
 
-  /* ================= MOBILE SIDEBAR ANIMATION ================= */
+  /* ================= MOBILE SIDEBAR ================= */
   const openSidebar = () => {
     setIsMobileMenuOpen(true);
 
@@ -68,10 +65,7 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
     gsap.to(overlayRef.current, {
       opacity: 0,
       duration: 0.25,
-      onComplete: () => {
-        setIsMobileMenuOpen(false);
-        setOpenServiceMenu(false);
-      },
+      onComplete: () => setIsMobileMenuOpen(false),
     });
   };
 
@@ -84,21 +78,26 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
   ];
 
   return (
-<header
+    <header
       ref={headerRef}
-      className={`fixed top-0 left-0 w-full h-[10vh] lg:h-[12vh] z-50 flex items-center transition-all duration-500 px-3 lg:px-14
-        ${isScrolled 
-          ? "bg-slate-500/10 backdrop-blur-md border-white/20 shadow-sm" 
-          : "bg-transparent"
-        }`}
+      className={`fixed top-0 left-0 w-full h-[10vh] lg:h-[12vh] z-50 
+      flex items-center transition-all duration-500
+      ${isScrolled
+        ? "bg-slate-500/10 backdrop-blur-md border-white/20 shadow-sm"
+        : "bg-transparent"
+      }`}
     >
-      <nav className="container mx-auto flex justify-between items-center">
+      {/* ================= CENTERED WRAPPER ================= */}
+      <nav
+        className="mx-auto flex w-full items-center justify-between px-4 lg:px-0"
+        style={{ maxWidth: "87vw" }}
+      >
         {/* LOGO */}
         <Link
           to="/"
           className="animate-item text-3xl italic font-bold font-montserrat"
         >
-          Tmt
+          LOGO
         </Link>
 
         {/* DESKTOP NAV */}
@@ -107,11 +106,11 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
             <Link
               key={item.name}
               to={item.path}
-              className={`animate-item font-montserrat transition
+              className={`animate-item transition font-montserrat
                 ${
                   location.pathname === item.path
                     ? "text-amber-500 font-semibold"
-                    : text || "text-[#161000]"
+                    : "text-[#161000]"
                 }
                 hover:text-amber-300`}
             >
@@ -121,19 +120,18 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
         </div>
 
         {/* DESKTOP CONTACT */}
-        <div
-          className={`animate-item hidden md:block border rounded-full px-9 py-3
-            ${border || "border-[#B58718]"} ${text || "text-[#B58718]"}
-            hover:text-black transition`}
-        >
-          <Link to="/contact-us">Contact Us</Link>
+        <div className="hidden md:block animate-item">
+          <Link
+            to="/contact-us"
+            className="border border-[#B58718] text-[#B58718]
+            rounded-full px-7 py-2 hover:text-black transition"
+          >
+            Contact Us
+          </Link>
         </div>
 
-        {/* MOBILE MENU BUTTON */}
-        <button
-          className="md:hidden animate-item"
-          onClick={openSidebar}
-        >
+        {/* MOBILE MENU */}
+        <button className="md:hidden animate-item" onClick={openSidebar}>
           <Menu size={28} className="text-black" />
         </button>
       </nav>
@@ -144,20 +142,17 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
           ref={overlayRef}
           className="fixed inset-0 bg-black/40 z-50 flex"
         >
-          {/* SIDEBAR */}
           <div
             ref={sidebarRef}
             className="relative w-72 bg-white h-full shadow-xl p-6"
           >
-            {/* ❌ CANCEL ICON (FIXED & CLEAR) */}
             <button
               onClick={closeSidebar}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100"
             >
-              <X size={26} className="text-black" />
+              <X size={26} />
             </button>
 
-            {/* LINKS */}
             <div className="mt-14 space-y-4">
               {navItems.map((item) => (
                 <Link
@@ -175,19 +170,17 @@ const Header = ({ bgColor = "", text = "", border = "" }) => {
                 </Link>
               ))}
 
-              {/* CONTACT */}
               <Link
                 to="/contact-us"
                 onClick={closeSidebar}
-                className="inline-block mt-6 text-[#B58718] border border-[#B58718]
-                  rounded-full px-6 py-2 hover:text-black"
+                className="inline-block mt-6 border border-[#B58718]
+                text-[#B58718] rounded-full px-6 py-2 hover:text-black"
               >
                 Contact Us
               </Link>
             </div>
           </div>
 
-          {/* OVERLAY CLICK */}
           <div className="flex-1" onClick={closeSidebar}></div>
         </div>
       )}

@@ -57,7 +57,7 @@ const BlogDetail = () => {
             className="w-full h-[45vh] lg:h-auto object-cover rounded-xl shadow-2xl mb-12"
             style={{
               maxHeight: "500px",
-              maxWidth: "1000px",
+              maxWidth: "87vw",
               marginLeft: "auto",
               marginRight: "auto",
               display: "block",
@@ -220,31 +220,31 @@ const BlogDetail = () => {
         </article>
       </div>
       <div
-        className="
-            grid 
-            grid-cols-1 
-            md:grid-cols-2 
-            lg:grid-cols-3 
-            gap-6 
-            md:gap-8 
-            px-4
-            lg:px-14
-            place-items-center
-          "
-      >
-        {blogPosts.map((post) => (
-          <Link key={post.id} to={`/blog-details`}>
-            <BlogCard
-              key={post.id}
-              imageUrl={post.imageUrl}
-              category={post.category}
-              title={post.title}
-              date={post.date}
-              author={post.author}
-            />
-          </Link>
-        ))}
-      </div>
+  className="
+    grid 
+    grid-cols-1 
+    md:grid-cols-2 
+    lg:grid-cols-3 
+    gap-6 
+    md:gap-8 
+    place-items-center 
+    max-w-[87vw]
+    mx-auto
+  "
+>
+  {blogPosts.map((post) => (
+    <Link key={post.id} to={`/blog-details`}>
+      <BlogCard
+        imageUrl={post.imageUrl}
+        category={post.category}
+        title={post.title}
+        date={post.date}
+        author={post.author}
+      />
+    </Link>
+  ))}
+</div>
+
 
       <CTABanner />
       <Footer />

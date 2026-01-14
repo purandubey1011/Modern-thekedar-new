@@ -75,7 +75,7 @@ const ServiceDetails = () => {
 
   return (
     <section ref={containerRef} className="bg-[#FAF8F3] py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 space-y-16">
+      <div className="mx-auto w-full px-4 lg:px-0 space-y-16" style={{ maxWidth: "87vw" }}>
         {services.map((service, index) => (
           <div
             key={index}

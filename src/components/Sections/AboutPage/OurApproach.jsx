@@ -41,7 +41,7 @@ const approaches = [
 
   return (
     <section className="py-10 lg:py-20">
-      <div className="container mx-auto px-6 lg:px-36">
+      <div className="container mx-auto max-w-[67vw]">
         <h2 className="text-4xl font-times font-bold text-[#000000] mb-5 text-center">
           Our Approach
         </h2>
