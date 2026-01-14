@@ -9,21 +9,23 @@ const Hero = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useGSAP(() => {
+useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+    // 1. Animate the Title (Matching the y-axis movement of Component 1)
     tl.from(".hero-title", {
-      y: 60,
+      y: 50,
       opacity: 0,
       duration: 1,
-      delay: 0.2
-    })
-    .from(".hero-shape", {
-      x: 100, 
+    });
+
+    // 2. Animate the Slanted Shape (Coming from the right with an overlap)
+    tl.from(".hero-shape", {
+      x: 100,             // Slide in from 100px right
       opacity: 0,
       duration: 1.2,
       ease: "power2.out"
-    }, "-=0.6");
+    }, "-=0.7");          // Overlap with the title animation for smoothness
 
   }, { scope: containerRef });
 
@@ -40,15 +42,19 @@ const Hero = () => {
       <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mt-0 overflow-hidden">
         <div
           className="hero-shape w-full h-full animate-smooth-flow"
-          style={{
-            background: `linear-gradient(135deg, 
-              #ffedd4 0%, 
-              #facc15 25%, 
-              #c19838 50%, 
-              #facc15 75%, 
-              #ffedd4 100%
-            )`,
-            backgroundSize: "400% 400%",
+         style={{
+           background: `
+             radial-gradient(at 10% 20%, #ffedd4 0px, transparent 50%), 
+             radial-gradient(at 80% 10%, #c19838 0px, transparent 50%), 
+             radial-gradient(at 40% 50%, #eab308 0px, transparent 50%), 
+             radial-gradient(at 70% 80%, #c19838 0px, transparent 50%), 
+             radial-gradient(at 10% 90%, #ffedd4 0px, transparent 50%),
+             #fef3c7
+           `,
+           backgroundSize: '200% 200%',
+           filter: 'blur(20px)',
+           opacity: 1 ,// Softens the blend for a premium look
+       
             clipPath: "polygon(0 40%, 100% 0, 100% 60%, 0% 100%)",
           }}
         />
