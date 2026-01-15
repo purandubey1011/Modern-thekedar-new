@@ -72,7 +72,7 @@ const ServicesTable = () => {
   );
 
   return (
-    <section ref={tableRef} className="bg-[#FAF8F3] py-20">
+    <section ref={tableRef} className="bg-[#FAF8F3]">
       <div className="mx-auto w-full px-4 lg:px-0 overflow-x-auto" style={{ maxWidth: "87vw" }}>
       <table className="w-full border-collapse rounded-2xl overflow-hidden bg-white border border-[#E6D6B8]">
   {/* TABLE HEAD */}

@@ -60,7 +60,6 @@ const Hero = () => {
               #fef3c7
             `,
             backgroundSize: "200% 200%",
-            filter: "blur(20px)",
             clipPath: "polygon(0 40%, 100% 0, 100% 60%, 0% 100%)",
           }}
         />

@@ -27,7 +27,7 @@ const Header = () => {
       gsap.from(".animate-item", {
         y: -40,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.45,
         stagger: 0.1,
         ease: "power2.out",
         clearProps: "all",
@@ -123,7 +123,7 @@ const Header = () => {
         <div className="hidden md:block animate-item">
           <Link
             to="/contact-us"
-            className="border border-[#B58718] text-[#B58718]
+            className="border border-gray-600 text-black
             rounded-full px-7 py-2 hover:text-black transition"
           >
             Contact Us
