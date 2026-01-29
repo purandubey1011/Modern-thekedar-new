@@ -90,13 +90,12 @@ const About = () => {
         Chaos, Both Are Traps.
       </h2>
 
-      <p className="about-text mt-3 lg:mt-6 text-gray-600 leading-relaxed text-[2vmax] md:text-[16px] max-w-xl">
-        At The Modern Thekedar (TMT), we’re redefining how homes are built.
-        No cramped flats. No chaotic construction. Just smart design, honest
-        execution, and peace of mind. We blend modern design expertise with
-        traditional craftsmanship — giving you the freedom of a custom home
-        and the ease of a seamless, professional process.
-      </p>
+<p className="about-text mt-3 lg:mt-6 text-gray-600 leading-relaxed text-[2vmax] md:text-[16px] max-w-xl">
+  At The Modern Thekedar (TMT), we eliminate the false choice between cramped flats
+  and chaotic construction. You get the freedom of a custom-built home with the
+  simplicity of a structured, professional process — modern design, trusted
+  craftsmanship, and complete peace of mind.
+</p>
     </div>
   </div>
 </section>

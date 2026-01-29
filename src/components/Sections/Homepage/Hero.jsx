@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import WaveBackground from "../../common/WaveBackground";
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -41,7 +42,7 @@ const Hero = () => {
       className="relative min-h-[87vh] flex items-center overflow-hidden"
     >
       {/* BACKGROUND (FULL WIDTH) */}
-      <div
+      {/* <div
         className="absolute w-[140vw] h-screen rounded-3xl -rotate-6 top-[-45%] left-[-25%]"
         style={{
           background: `
@@ -56,7 +57,21 @@ const Hero = () => {
           filter: "blur(70px)",
           opacity: 0.7,
         }}
-      />
+      /> */}
+
+        {/* THREE.JS BACKGROUND */}
+  <div className="absolute inset-0 z-0">
+    <WaveBackground />
+  </div>
+
+  {/* EXISTING GRADIENT (optional overlay) */}
+  <div
+    className="absolute inset-0 z-[1]"
+    style={{
+      background:
+        "radial-gradient(at 30% 20%, rgba(250,204,21,0.4), transparent 60%)",
+    }}
+  />
 
       {/* 🎯 CENTERED CONTENT — SAME AS HEADER */}
       <div

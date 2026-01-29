@@ -109,6 +109,87 @@ body,html{
   }
 }
 
+.stripe-running-gradient {
+  position: absolute;
+  inset: -50%;
+  
+  background-image:
+    linear-gradient(
+      120deg,
+      #fef3c7 0%,
+      #fde68a 15%,
+      #facc15 30%,
+      #eab308 45%,
+      #fde68a 60%,
+      #fef3c7 75%
+    );
+
+  background-size: 300% 300%;
+  animation: stripeFlow 80s linear infinite;
+
+  filter: blur(40px);
+  opacity: 0.8;
+
+  /* Stripe-style soft edge fade */
+  mask-image: radial-gradient(
+    circle at center,
+    black 0%,
+    black 55%,
+    transparent 75%
+  );
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 20%;
+  }
+  100% {
+    background-position: 100% 80%;
+  }
+}
+
+.animate-gradient-flow {
+  animation: gradient-flow 18s ease-in-out infinite alternate;
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0% 100%);
+}
+
+
+
+
+
+
+
+.hero-shape {
+  position: relative;
+  overflow: hidden;
+}
+
+/* SMOOTH WAVE GRADIENT LAYER */
+.hero-shape::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+
+  background:
+    radial-gradient(circle at 20% 40%, rgba(255, 237, 212, 0.6), transparent 55%),
+    radial-gradient(circle at 70% 30%, rgba(193, 152, 56, 0.5), transparent 60%),
+    radial-gradient(circle at 50% 70%, rgba(234, 179, 8, 0.45), transparent 65%);
+
+  filter: blur(90px);
+  animation: liquidWave 24s ease-in-out infinite alternate;
+  opacity: 0.7;
+
+  pointer-events: none;
+}
+
+
+
+
+
+
 
 
 

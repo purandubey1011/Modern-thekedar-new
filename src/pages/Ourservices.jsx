@@ -12,7 +12,7 @@ const Ourservices = () => {
   return (
     <div className="overflow-x-hidden">
       <OurServiceHero/>
-      <ServicesCards/>
+      {/* <ServicesCards/> */}
       <ServiceDetails/>
       <ServicesTable/>
        <CTABanner />
