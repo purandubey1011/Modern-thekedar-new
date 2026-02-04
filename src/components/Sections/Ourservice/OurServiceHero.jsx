@@ -249,11 +249,15 @@ useLayoutEffect(() => {
           </div>
 
           {/* FLOATING CARDS (Desktop Animation Only) */}
-          <div className="hidden md:block absolute inset-0 z-40 pointer-events-none">
+          <div className="hidden md:block absolute inset-0 z-40">
             {servicesData.map((service, i) => (
               <div
                 key={i}
                 ref={(el) => (movingCardsRef.current[i] = el)}
+                onClick={(e) => {
+        e.stopPropagation(); // Prevents event bubbling
+        navigate(service.path);
+      }}
                 className="absolute w-[350px] h-[500px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
                 style={{
                   right: "12%",
