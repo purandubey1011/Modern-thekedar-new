@@ -56,6 +56,109 @@ const HeroService = () => {
     loadScripts();
   }, []);
 
+//   useLayoutEffect(() => {
+//   if (!isGsapReady) return;
+//   const gsap = window.gsap;
+//   let mm = gsap.matchMedia();
+
+//   mm.add("(min-width: 768px)", () => {
+//     const ctx = gsap.context(() => {
+//       const cards = movingCardsRef.current;
+      
+//       // --- 1. INFINITE LEFT-SIDE SHUFFLE ---
+//       let currentIndex = 0;
+      
+//       const playShuffle = () => {
+//         const topCard = cards[currentIndex % cards.length];
+//         const nextCard = cards[(currentIndex + 1) % cards.length];
+//         const lastCard = cards[(currentIndex + 2) % cards.length];
+
+//         const shuffleTl = gsap.timeline({
+//           onComplete: () => {
+//             currentIndex++;
+//             playShuffle();
+//           }
+//         });
+
+//         shuffleTl
+//           // Move top card out to the LEFT and fade
+//           .to(topCard, {
+//             x: "-=150", // Swipe Left
+//             y: "-=20",
+//             rotation: -15, // Tilt opposite way
+//             opacity: 0,
+//             duration: 0.8,
+//             ease: "power2.inOut",
+//             delay: 2 
+//           })
+//           // Update stack order
+//           .set(topCard, { zIndex: 10 })   
+//           .set(nextCard, { zIndex: 40 })  
+//           .set(lastCard, { zIndex: 30 })  
+          
+//           // Straighten the new front card
+//           .to(nextCard, {
+//             x: 0,
+//             y: 0,
+//             rotation: 0,
+//             duration: 0.6,
+//             ease: "back.out(1.2)"
+//           }, "<")
+          
+//           // Old card slides back into the bottom-right of the stack
+//           .to(topCard, {
+//             x: -30, // Offset to the left
+//             y: 20,
+//             rotation: -4,
+//             opacity: 1,
+//             duration: 0.5,
+//           }, "-=0.2");
+//       };
+
+//       playShuffle();
+
+//       // --- 2. SCROLL TRIGGER (Destination Grid) ---
+//       const tl = gsap.timeline({
+//         scrollTrigger: {
+//           trigger: mainContainer.current,
+//           start: "top -5%",
+//           end: "+=90%",
+//           pin: true,
+//           scrub: 0.5,
+//           onEnter: () => gsap.killTweensOf(cards),
+//         },
+//       });
+
+//       tl.to(".hero-text-content", { opacity: 0, y: -50, duration: 0.3 }, 0);
+
+//       cards.forEach((card, idx) => {
+//         const target = targetRefs.current[idx];
+//         if (!card || !target) return;
+
+//         const targetRect = target.getBoundingClientRect();
+//         const cardRect = card.getBoundingClientRect();
+
+//         tl.to(card, {
+//           x: targetRect.left - cardRect.left,
+//           y: targetRect.top - cardRect.top,
+//           width: targetRect.width,
+//           rotation: 0,
+//           opacity: 1,
+//           zIndex: 100,
+//           ease: "expo.out",
+//         }, 0);
+        
+//         tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
+//         tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
+//       });
+
+//     }, mainContainer);
+//     return () => ctx.revert();
+//   });
+
+//   return () => mm.revert();
+// }, [isGsapReady]);
+
 useLayoutEffect(() => {
   if (!isGsapReady) return;
   const gsap = window.gsap;
@@ -151,10 +254,10 @@ useLayoutEffect(() => {
               <div
                 key={i}
                 ref={(el) => (movingCardsRef.current[i] = el)}
-                className="absolute w-[350px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
+                className="absolute w-[350px] h-[500px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
                 style={{
-                  right: "15%",
-                  top: "50%",
+                  right: "12%",
+                  top: "40%",
                   zIndex: 40 - i,
                   transform: `translate(${i * 30}px, ${i * 20}px) rotate(${i * 4}deg)`,
                 }}
