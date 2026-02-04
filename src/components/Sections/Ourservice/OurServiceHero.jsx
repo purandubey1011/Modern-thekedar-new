@@ -30,7 +30,7 @@ const servicesData = [
 const HeroService = () => {
   const navigate = useNavigate();
   const mainContainer = useRef(null);
-  const movingImagesRef = useRef([]);
+  const movingCardsRef = useRef([]);
   const targetRefs = useRef([]);
   const [isGsapReady, setIsGsapReady] = useState(false);
 
@@ -56,66 +56,66 @@ const HeroService = () => {
     loadScripts();
   }, []);
 
-  useLayoutEffect(() => {
-    if (!isGsapReady) return;
-    const gsap = window.gsap;
-    let mm = gsap.matchMedia();
+useLayoutEffect(() => {
+  if (!isGsapReady) return;
+  const gsap = window.gsap;
+  let mm = gsap.matchMedia();
 
-    mm.add("(min-width: 768px)", () => {
+  mm.add("(min-width: 768px)", () => {
+    const ctx = gsap.context(() => {
       
-      const ctx = gsap.context(() => {
-        window.ScrollTrigger.create({
+      // 1. Setup the main timeline with Snapping
+      const tl = gsap.timeline({
+        scrollTrigger: {
           trigger: mainContainer.current,
-          start: "top top",
-          end: "+=150%",
+          start: "top -5%",
+          end: "+=90%", // Reduced height for faster activation
           pin: true,
-          pinSpacing: true,
-          scrub: 1,
-        });
+          scrub: 0.5,    // Lower number makes it more responsive to scroll
+          snap: {
+            snapTo: 2,          // Snaps to the very end of the timeline
+            duration: 0.5,      // How long the "snap" animation takes
+            delay: 0.5,         // Delay before snapping starts
+            ease: "power2.inOut"
+          }
+        },
+      });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: mainContainer.current,
-            start: "top top",
-            end: "+=70%",
-            scrub: 1,
-          },
-        });
+      // 2. Hero text fade out
+      tl.to(".hero-text-content", { 
+        opacity: 1, 
+        y: -100, 
+        duration: 0.3 
+      }, 0);
 
-        tl.to(".hero-text-content", { opacity: 0, y: -50 }, 0);
+      // 3. Card movement
+      movingCardsRef.current.forEach((card, idx) => {
+        const target = targetRefs.current[idx];
+        if (!card || !target) return;
 
-        movingImagesRef.current.forEach((img, idx) => {
-          const target = targetRefs.current[idx];
-          const scrollXAu = -0.1125 * window.innerWidth + 197
-          const scrollYAu = 0.25316456 * window.innerHeight - 115.316
+        const targetRect = target.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+
+        // Animate movement
+        tl.to(card, {
+          x: targetRect.left - cardRect.left, // Fixed calculation for horizontal
+          y: targetRect.top - cardRect.top,
+          width: targetRect.width,
+          rotation: 0,
+          ease: "expo.out", // Makes the movement feel "snappier"
+        }, 0);
         
-          if (!img || !target) return;
-          tl.to(img, {
-            x: () => {
-              const t = target.getBoundingClientRect();
-              // are ruko to
-              const i = img.getBoundingClientRect();
-              return (t.left + t.width / 2 - (i.left
-                 + i.width / 2)) + scrollXAu + idx * 41;
-            },
-            y: () => {
-              const t = target.getBoundingClientRect();
-              const i = img.getBoundingClientRect();
-              return (t.top + t.height / 2 - (i.top + i.height / 2)) + scrollYAu + idx * 20;
-            },
-            width: () => target.offsetWidth,
-            height: () => target.offsetHeight,
-            rotation: 0,
-            borderRadius: "10px 10px 0 0",
-            ease: "none",
-          }, 0);
-        });
-      }, mainContainer);
-      return () => ctx.revert();
-    });
+        // Rapid transition between floating cards and static grid
+        tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
+        tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
+      });
 
-    return () => mm.revert();
-  }, [isGsapReady]);
+    }, mainContainer);
+    return () => ctx.revert();
+  });
+
+  return () => mm.revert();
+}, [isGsapReady]);
 
   if (!isGsapReady) return (
     <div className="h-screen flex items-center justify-center bg-[#B58718] text-white">
@@ -124,100 +124,78 @@ const HeroService = () => {
   );
 
   return (
-
     <>
-    <Header bgColor="" text="black" border="border"/>
+      <Header bgColor="" text="black" border="border" />
 
-    <div ref={mainContainer} className="relative w-full overflow-hidden">
-      {/* --- HERO SECTION --- */}
-      <section className="relative min-h-screen w-full bg-[#B58718] z-30 flex flex-col">
-        {/* Responsive Grid Layout */}
-        <div className="flex-grow flex items-center">
-          <div className="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
-
-            {/* LEFT CONTENT */}
-            <div className="hero-text-content text-white">
-              <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 mt-12">
-                Our <br className="hidden md:block"/> Services
-              </h1>
-              <p className="text-lg text-white/90 max-w-lg">
-                Engineered with precision, our TMT bars redefine strength and reliability.
-                Designed to withstand extreme conditions, they guarantee safety and durability for every project.
-              </p>
-            </div>
-
-            {/* RIGHT IMAGE (Mobile Only Static Version) */}
-            <div className="md:hidden relative flex justify-center">
-               <div className="w-[90vw] h-[45vh] rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src="https://ik.imagekit.io/b9tt0xvd7/Falverra/serviceherobuilding.jpg"
-                    alt="Service Hero"
-                    className="w-full h-full object-cover"
-                  />
-               </div>
+      <div ref={mainContainer} className="relative w-full overflow-hidden bg-[#FAF8F3]">
+        {/* --- HERO SECTION --- */}
+        <section className="relative min-h-screen w-full bg-[#B58718] z-30 flex flex-col">
+          <div className="flex-grow flex items-center">
+            <div className="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+              <div className="hero-text-content text-white">
+                <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 mt-12">
+                  Our <br className="hidden md:block" /> Services
+                </h1>
+                <p>
+              Engineered with precision, our TMT bars redefine strength and
+              reliability. Designed to withstand extreme conditions, they
+              guarantee safety and durability for every project, big or small.
+            </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* FLOATING IMAGES (Desktop Animation Only) */}
-        <div className="hidden md:block absolute inset-0 z-40 pointer-events-none">
-          {servicesData.map((service, i) => (
-            <div
-              key={i}
-              ref={(el) => (movingImagesRef.current[i] = el)}
-              className="absolute w-[22vw] h-[55vh] right-[10%] top-[30%] shadow-2xl overflow-hidden rounded-2xl will-change-transform"
-              style={{
-                zIndex: 40 - i,
-                transform: `translate(${i * 40}px, ${i * 20}px) rotate(${i * 5}deg)`,
-              }}
-            >
-              <img src={service.image} className="w-full h-full object-cover" alt="" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- SERVICES SECTION --- */}
-      <section className="relative min-h-screen py-32 bg-[#FAF8F3] z-10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* FLOATING CARDS (Desktop Animation Only) */}
+          <div className="hidden md:block absolute inset-0 z-40 pointer-events-none">
             {servicesData.map((service, i) => (
               <div
                 key={i}
-                onClick={() => navigate(service.path)}
-                className="cursor-pointer bg-[#B587180D] rounded-md overflow-hidden transition-transform duration-500 hover:-translate-y-2 group"
+                ref={(el) => (movingCardsRef.current[i] = el)}
+                className="absolute w-[350px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
+                style={{
+                  right: "15%",
+                  top: "50%",
+                  zIndex: 40 - i,
+                  transform: `translate(${i * 30}px, ${i * 20}px) rotate(${i * 4}deg)`,
+                }}
               >
-                {/* TARGET FOR GSAP (Desktop) / STATIC IMAGE (Mobile) */}
-                <div
-                   ref={(el) => (targetRefs.current[i] = el)}
-                   className="w-full aspect-[3/2] overflow-hidden bg-gray-200"
-                >
-                    {/* Only visible on mobile to provide the visual content */}
-                    <img
-                        src={service.image}
-                        className="md:hidden w-full h-full object-cover"
-                        alt={service.title}
-                    />
-                </div>
-
-                <div className="py-5 px-3">
-                  <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-[#6B6B6B] mb-6 leading-relaxed max-w-[90%]">
-                    {service.fullDesc}
-                  </p>
-                  <button className="flex items-center gap-2 text-[#B58718] font-semibold text-sm">
-                    Learn More <ChevronDown size={16} />
-                  </button>
+                <img src={service.image} className="w-full aspect-[3/2] object-cover" alt="" />
+                <div className="py-5 px-4 bg-white">
+                  <h3 className="text-xl font-serif font-semibold text-[#1D1D1B]">{service.title}</h3>
+                  <p className="text-xs text-[#6B6B6B] mt-2">{service.fullDesc}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
 
+        {/* --- SERVICES SECTION (The Destination) --- */}
+        <section className="relative min-h-screen py-32 bg-[#FAF8F3] z-10">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {servicesData.map((service, i) => (
+                <div
+                  key={i}
+                  ref={(el) => (targetRefs.current[i] = el)}
+                  onClick={() => navigate(service.path)}
+                  className="md:opacity-0 cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group"
+                >
+                  <div className="w-full aspect-[3/2] overflow-hidden bg-gray-200">
+                    <img src={service.image} className="w-full h-full object-cover" alt={service.title} />
+                  </div>
+                  <div className="py-5 px-4">
+                    <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">{service.title}</h3>
+                    <p className="text-sm text-[#6B6B6B] mb-6 leading-relaxed">{service.fullDesc}</p>
+                    <button className="flex items-center gap-2 text-[#B58718] font-semibold text-sm">
+                      Learn More <ChevronDown size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 };
