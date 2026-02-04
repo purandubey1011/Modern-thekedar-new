@@ -2,27 +2,33 @@ import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
 import Header from "../../common/Header";
 import { useNavigate } from "react-router-dom";
+import WaveBackground from "../../common/WaveBackground";
 
 const servicesData = [
   {
     id: 1,
     title: "TMT Standard",
     fullDesc: "Need strength and quality within a good budget?",
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80",
     path: "/services/tmt-Standard",
   },
   {
     id: 2,
     title: "TMT Prime",
-    fullDesc: "Looking to elevate your home with superior materials and finishes?",
-    image: "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=800&q=80",
+    fullDesc:
+      "Looking to elevate your home with superior materials and finishes?",
+    image:
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=800&q=80",
     path: "/services/tmt-Prime",
   },
   {
     id: 3,
     title: "TMT Luxe",
-    fullDesc: "Ready to build a no-compromise luxury home with the finest craftsmanship?",
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80",
+    fullDesc:
+      "Ready to build a no-compromise luxury home with the finest craftsmanship?",
+    image:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80",
     path: "/services/tmt-Luxe",
   },
 ];
@@ -48,191 +54,217 @@ const HeroService = () => {
           document.body.appendChild(s);
         });
 
-      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js");
-      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js");
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+      );
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js",
+      );
       window.gsap.registerPlugin(window.ScrollTrigger);
       setIsGsapReady(true);
     };
     loadScripts();
   }, []);
 
-//   useLayoutEffect(() => {
-//   if (!isGsapReady) return;
-//   const gsap = window.gsap;
-//   let mm = gsap.matchMedia();
+  //   useLayoutEffect(() => {
+  //   if (!isGsapReady) return;
+  //   const gsap = window.gsap;
+  //   let mm = gsap.matchMedia();
 
-//   mm.add("(min-width: 768px)", () => {
-//     const ctx = gsap.context(() => {
-//       const cards = movingCardsRef.current;
-      
-//       // --- 1. INFINITE LEFT-SIDE SHUFFLE ---
-//       let currentIndex = 0;
-      
-//       const playShuffle = () => {
-//         const topCard = cards[currentIndex % cards.length];
-//         const nextCard = cards[(currentIndex + 1) % cards.length];
-//         const lastCard = cards[(currentIndex + 2) % cards.length];
+  //   mm.add("(min-width: 768px)", () => {
+  //     const ctx = gsap.context(() => {
+  //       const cards = movingCardsRef.current;
 
-//         const shuffleTl = gsap.timeline({
-//           onComplete: () => {
-//             currentIndex++;
-//             playShuffle();
-//           }
-//         });
+  //       // --- 1. INFINITE LEFT-SIDE SHUFFLE ---
+  //       let currentIndex = 0;
 
-//         shuffleTl
-//           // Move top card out to the LEFT and fade
-//           .to(topCard, {
-//             x: "-=150", // Swipe Left
-//             y: "-=20",
-//             rotation: -15, // Tilt opposite way
-//             opacity: 0,
-//             duration: 0.8,
-//             ease: "power2.inOut",
-//             delay: 2 
-//           })
-//           // Update stack order
-//           .set(topCard, { zIndex: 10 })   
-//           .set(nextCard, { zIndex: 40 })  
-//           .set(lastCard, { zIndex: 30 })  
-          
-//           // Straighten the new front card
-//           .to(nextCard, {
-//             x: 0,
-//             y: 0,
-//             rotation: 0,
-//             duration: 0.6,
-//             ease: "back.out(1.2)"
-//           }, "<")
-          
-//           // Old card slides back into the bottom-right of the stack
-//           .to(topCard, {
-//             x: -30, // Offset to the left
-//             y: 20,
-//             rotation: -4,
-//             opacity: 1,
-//             duration: 0.5,
-//           }, "-=0.2");
-//       };
+  //       const playShuffle = () => {
+  //         const topCard = cards[currentIndex % cards.length];
+  //         const nextCard = cards[(currentIndex + 1) % cards.length];
+  //         const lastCard = cards[(currentIndex + 2) % cards.length];
 
-//       playShuffle();
+  //         const shuffleTl = gsap.timeline({
+  //           onComplete: () => {
+  //             currentIndex++;
+  //             playShuffle();
+  //           }
+  //         });
 
-//       // --- 2. SCROLL TRIGGER (Destination Grid) ---
-//       const tl = gsap.timeline({
-//         scrollTrigger: {
-//           trigger: mainContainer.current,
-//           start: "top -5%",
-//           end: "+=90%",
-//           pin: true,
-//           scrub: 0.5,
-//           onEnter: () => gsap.killTweensOf(cards),
-//         },
-//       });
+  //         shuffleTl
+  //           // Move top card out to the LEFT and fade
+  //           .to(topCard, {
+  //             x: "-=150", // Swipe Left
+  //             y: "-=20",
+  //             rotation: -15, // Tilt opposite way
+  //             opacity: 0,
+  //             duration: 0.8,
+  //             ease: "power2.inOut",
+  //             delay: 2
+  //           })
+  //           // Update stack order
+  //           .set(topCard, { zIndex: 10 })
+  //           .set(nextCard, { zIndex: 40 })
+  //           .set(lastCard, { zIndex: 30 })
 
-//       tl.to(".hero-text-content", { opacity: 0, y: -50, duration: 0.3 }, 0);
+  //           // Straighten the new front card
+  //           .to(nextCard, {
+  //             x: 0,
+  //             y: 0,
+  //             rotation: 0,
+  //             duration: 0.6,
+  //             ease: "back.out(1.2)"
+  //           }, "<")
 
-//       cards.forEach((card, idx) => {
-//         const target = targetRefs.current[idx];
-//         if (!card || !target) return;
+  //           // Old card slides back into the bottom-right of the stack
+  //           .to(topCard, {
+  //             x: -30, // Offset to the left
+  //             y: 20,
+  //             rotation: -4,
+  //             opacity: 1,
+  //             duration: 0.5,
+  //           }, "-=0.2");
+  //       };
 
-//         const targetRect = target.getBoundingClientRect();
-//         const cardRect = card.getBoundingClientRect();
+  //       playShuffle();
 
-//         tl.to(card, {
-//           x: targetRect.left - cardRect.left,
-//           y: targetRect.top - cardRect.top,
-//           width: targetRect.width,
-//           rotation: 0,
-//           opacity: 1,
-//           zIndex: 100,
-//           ease: "expo.out",
-//         }, 0);
-        
-//         tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
-//         tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
-//       });
+  //       // --- 2. SCROLL TRIGGER (Destination Grid) ---
+  //       const tl = gsap.timeline({
+  //         scrollTrigger: {
+  //           trigger: mainContainer.current,
+  //           start: "top -5%",
+  //           end: "+=90%",
+  //           pin: true,
+  //           scrub: 0.5,
+  //           onEnter: () => gsap.killTweensOf(cards),
+  //         },
+  //       });
 
-//     }, mainContainer);
-//     return () => ctx.revert();
-//   });
+  //       tl.to(".hero-text-content", { opacity: 0, y: -50, duration: 0.3 }, 0);
 
-//   return () => mm.revert();
-// }, [isGsapReady]);
+  //       cards.forEach((card, idx) => {
+  //         const target = targetRefs.current[idx];
+  //         if (!card || !target) return;
 
-useLayoutEffect(() => {
-  if (!isGsapReady) return;
-  const gsap = window.gsap;
-  let mm = gsap.matchMedia();
+  //         const targetRect = target.getBoundingClientRect();
+  //         const cardRect = card.getBoundingClientRect();
 
-  mm.add("(min-width: 768px)", () => {
-    const ctx = gsap.context(() => {
-      
-      // 1. Setup the main timeline with Snapping
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: mainContainer.current,
-          start: "top -5%",
-          end: "+=90%", // Reduced height for faster activation
-          pin: true,
-          scrub: 0.5,    // Lower number makes it more responsive to scroll
-          snap: {
-            snapTo: 2,          // Snaps to the very end of the timeline
-            duration: 0.5,      // How long the "snap" animation takes
-            delay: 0.5,         // Delay before snapping starts
-            ease: "power2.inOut"
-          }
-        },
-      });
+  //         tl.to(card, {
+  //           x: targetRect.left - cardRect.left,
+  //           y: targetRect.top - cardRect.top,
+  //           width: targetRect.width,
+  //           rotation: 0,
+  //           opacity: 1,
+  //           zIndex: 100,
+  //           ease: "expo.out",
+  //         }, 0);
 
-      // 2. Hero text fade out
-      tl.to(".hero-text-content", { 
-        opacity: 1, 
-        y: -100, 
-        duration: 0.3 
-      }, 0);
+  //         tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
+  //         tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
+  //       });
 
-      // 3. Card movement
-      movingCardsRef.current.forEach((card, idx) => {
-        const target = targetRefs.current[idx];
-        if (!card || !target) return;
+  //     }, mainContainer);
+  //     return () => ctx.revert();
+  //   });
 
-        const targetRect = target.getBoundingClientRect();
-        const cardRect = card.getBoundingClientRect();
+  //   return () => mm.revert();
+  // }, [isGsapReady]);
 
-        // Animate movement
-        tl.to(card, {
-          x: targetRect.left - cardRect.left, // Fixed calculation for horizontal
-          y: targetRect.top - cardRect.top,
-          width: targetRect.width,
-          rotation: 0,
-          ease: "expo.out", // Makes the movement feel "snappier"
-        }, 0);
-        
-        // Rapid transition between floating cards and static grid
-        tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
-        tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
-      });
+  useLayoutEffect(() => {
+    if (!isGsapReady) return;
+    const gsap = window.gsap;
+    let mm = gsap.matchMedia();
 
-    }, mainContainer);
-    return () => ctx.revert();
-  });
+    mm.add("(min-width: 768px)", () => {
+      const ctx = gsap.context(() => {
+        // 1. Setup the main timeline with Snapping
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: mainContainer.current,
+            start: "top -5%",
+            end: "+=150%", // Reduced height for faster activation
+            pin: true,
+            scrub: 0.3, // Lower number makes it more responsive to scroll
+            snap: {
+              snapTo: 2, // Snaps to the very end of the timeline
+              duration: { min: 0.5, max: 1.2 },
+              delay: 0.2, // Delay before snapping starts
+              ease: "power2.inOut",
+            },
+          },
+        });
 
-  return () => mm.revert();
-}, [isGsapReady]);
+        // 2. Hero text fade out
+        tl.to(
+          ".hero-text-content",
+          {
+            opacity: 1,
+            y: -100,
+            duration: 0.3,
+          },
+          0,
+        );
 
-  if (!isGsapReady) return (
-    <div className="h-screen flex items-center justify-center bg-[#B58718] text-white">
-      <Loader2 className="animate-spin" />
-    </div>
-  );
+        // 3. Card movement
+        movingCardsRef.current.forEach((card, idx) => {
+          const target = targetRefs.current[idx];
+          if (!card || !target) return;
+
+          const targetRect = target.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+
+          // Animate movement
+          tl.to(
+            card,
+            {
+              x: targetRect.left - cardRect.left, // Fixed calculation for horizontal
+              y: targetRect.top - cardRect.top,
+              width: targetRect.width,
+              rotation: 0,
+              ease: "expo.out", // Makes the movement feel "snappier"
+            },
+            0,
+          );
+
+          // Rapid transition between floating cards and static grid
+          tl.to(card, { opacity: 0, duration: 0.1 }, 0.9);
+          tl.to(target, { opacity: 1, duration: 0.1 }, 0.9);
+        });
+      }, mainContainer);
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
+  }, [isGsapReady]);
+
+  if (!isGsapReady)
+    return (
+      <div className="h-screen flex items-center justify-center bg-[#B58718] text-white">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
 
   return (
     <>
       <Header bgColor="" text="black" border="border" />
 
-      <div ref={mainContainer} className="relative w-full overflow-hidden bg-[#FAF8F3]">
+      <div
+        ref={mainContainer}
+        className="relative w-full overflow-hidden bg-[#FAF8F3]"
+      >
         {/* --- HERO SECTION --- */}
-        <section className="relative min-h-screen w-full bg-[#B58718] z-30 flex flex-col">
+        <section className="relative min-h-screen w-full bg-white z-30 flex flex-col">
+            <div className="absolute inset-0 z-0">
+              <WaveBackground />
+            </div>
+
+              {/* EXISTING GRADIENT (optional overlay) */}
+  <div
+    className="absolute inset-0 z-[1]"
+    style={{
+      background:
+        "radial-gradient(at 30% 20%, rgba(250,204,21,0.4), transparent 60%)",
+    }}
+  />
           <div className="flex-grow flex items-center">
             <div className="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
               <div className="hero-text-content text-white">
@@ -240,10 +272,11 @@ useLayoutEffect(() => {
                   Our <br className="hidden md:block" /> Services
                 </h1>
                 <p>
-              Engineered with precision, our TMT bars redefine strength and
-              reliability. Designed to withstand extreme conditions, they
-              guarantee safety and durability for every project, big or small.
-            </p>
+                  Engineered with precision, our TMT bars redefine strength and
+                  reliability. Designed to withstand extreme conditions, they
+                  guarantee safety and durability for every project, big or
+                  small.
+                </p>
               </div>
             </div>
           </div>
@@ -255,21 +288,29 @@ useLayoutEffect(() => {
                 key={i}
                 ref={(el) => (movingCardsRef.current[i] = el)}
                 onClick={(e) => {
-        e.stopPropagation(); // Prevents event bubbling
-        navigate(service.path);
-      }}
-                className="absolute w-[350px] h-[500px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
+                  e.stopPropagation(); // Prevents event bubbling
+                  navigate(service.path);
+                }}
+                className="absolute w-[350px] h-[350px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
                 style={{
-                  right: "12%",
+                  right: "6%",
                   top: "40%",
                   zIndex: 40 - i,
                   transform: `translate(${i * 30}px, ${i * 20}px) rotate(${i * 4}deg)`,
                 }}
               >
-                <img src={service.image} className="w-full aspect-[3/2] object-cover" alt="" />
+                <img
+                  src={service.image}
+                  className="w-full aspect-[3/2] object-cover"
+                  alt=""
+                />
                 <div className="py-5 px-4 bg-white">
-                  <h3 className="text-xl font-serif font-semibold text-[#1D1D1B]">{service.title}</h3>
-                  <p className="text-xs text-[#6B6B6B] mt-2">{service.fullDesc}</p>
+                  <h3 className="text-xl font-serif font-semibold text-[#1D1D1B]">
+                    {service.title}
+                  </h3>
+                  <p className="hidden text-xs text-[#6B6B6B] mt-2">
+                    {service.fullDesc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -277,7 +318,7 @@ useLayoutEffect(() => {
         </section>
 
         {/* --- SERVICES SECTION (The Destination) --- */}
-        <section className="relative min-h-screen py-32 bg-[#FAF8F3] z-10">
+        <section className="relative min-h-screen py-10 bg-[#FAF8F3] z-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {servicesData.map((service, i) => (
@@ -288,11 +329,19 @@ useLayoutEffect(() => {
                   className="md:opacity-0 cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-black/5 group"
                 >
                   <div className="w-full aspect-[3/2] overflow-hidden bg-gray-200">
-                    <img src={service.image} className="w-full h-full object-cover" alt={service.title} />
+                    <img
+                      src={service.image}
+                      className="w-full h-full object-cover"
+                      alt={service.title}
+                    />
                   </div>
                   <div className="py-5 px-4">
-                    <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">{service.title}</h3>
-                    <p className="text-sm text-[#6B6B6B] mb-6 leading-relaxed">{service.fullDesc}</p>
+                    <h3 className="text-2xl font-serif font-semibold text-[#1D1D1B] mb-3">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-[#6B6B6B] mb-6 leading-relaxed">
+                      {service.fullDesc}
+                    </p>
                     <button className="flex items-center gap-2 text-[#B58718] font-semibold text-sm">
                       Learn More <ChevronDown size={16} />
                     </button>
@@ -308,8 +357,6 @@ useLayoutEffect(() => {
 };
 
 export default HeroService;
-
-
 
 // import React, { useRef } from "react";
 // import Header from "../../common/Header";

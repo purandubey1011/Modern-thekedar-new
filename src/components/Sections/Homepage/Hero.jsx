@@ -28,8 +28,8 @@ const Hero = () => {
       );
 
       tl.from(".hero-btn", {
-        opacity: 0,
-        y: 20,
+        opacity: 1,
+        y: 18,
         duration: 0.8,
       });
     },
