@@ -181,11 +181,11 @@ const HeroService = () => {
           scrollTrigger: {
             trigger: mainContainer.current,
             start: "top -5%",
-            end: "+=150%", // Reduced height for faster activation
+            end: "+=20%", // Reduced height for faster activation
             pin: true,
             scrub: 0.3, // Lower number makes it more responsive to scroll
             snap: {
-              snapTo: 2, // Snaps to the very end of the timeline
+              snapTo: 1, // Snaps to the very end of the timeline
               duration: { min: 0.5, max: 1.2 },
               delay: 0.2, // Delay before snapping starts
               ease: "power2.inOut",
@@ -198,7 +198,7 @@ const HeroService = () => {
           ".hero-text-content",
           {
             opacity: 1,
-            y: -100,
+            y: -1,
             duration: 0.3,
           },
           0,
@@ -294,7 +294,7 @@ const HeroService = () => {
                 className="absolute w-[350px] h-[350px] bg-white shadow-2xl overflow-hidden rounded-2xl will-change-transform"
                 style={{
                   right: "6%",
-                  top: "40%",
+                  top: "30%",
                   zIndex: 40 - i,
                   transform: `translate(${i * 30}px, ${i * 20}px) rotate(${i * 4}deg)`,
                 }}
@@ -318,7 +318,7 @@ const HeroService = () => {
         </section>
 
         {/* --- SERVICES SECTION (The Destination) --- */}
-        <section className="relative min-h-screen py-10 bg-[#FAF8F3] z-10">
+        <section className="relative min-h-[35vh] py-10 bg-[#FAF8F3] z-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {servicesData.map((service, i) => (
